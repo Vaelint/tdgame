@@ -2,6 +2,7 @@
 
 use bevy::app::{AppBuilder, PluginGroup, PluginGroupBuilder};
 use bevy::prelude::*;
+use log::info;
 
 /// A group of plugins that produce the "hello world" behavior
 pub struct DbgPlugs;
@@ -18,16 +19,16 @@ mod basic {
 
     impl Plugin for BasicDbgPlug {
         fn build(&self, app: &mut AppBuilder) {
-            app.add_system(print_hello_system.system())
-                .add_system(print_world_system.system());
+            app.add_startup_system(hello_world.system())
+                .add_startup_system(hello_log.system());
         }
     }
 
-    fn print_hello_system() {
-        println!("hello");
+    fn hello_world() {
+        println!("Hello, World!");
     }
 
-    fn print_world_system() {
-        println!("world");
+    fn hello_log() {
+        info!("Hello, Log!");
     }
 }

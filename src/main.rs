@@ -5,15 +5,36 @@
 #![allow(unused)]
 
 use bevy::prelude::*;
+use ecs::plugins;
+use simplelog::*;
+use std::fs::File;
 
 mod ecs;
 
-use ecs::plugins;
-
 fn main() {
-    App::build()
+    // Setup logger
+    CombinedLogger::init(vec![
+        TermLogger::new(LevelFilter::Warn, Config::default(), TerminalMode::Mixed),
+        WriteLogger::new(
+            LevelFilter::Info,
+            Config::default(),
+            File::create("debug.log").unwrap(),
+        ),
+    ])
+    .unwrap();
+
+    // Start Bevy App
+    let mut app_builder = App::build();
+
+    // Add core Plugins
+    app_builder
         .add_plugins(DefaultPlugins)
-        .add_plugins(plugins::DbgPlugs)
-        .add_plugin(plugins::TowerPlug)
-        .run();
+        .add_plugin(plugins::TowerPlug);
+
+    // Add debuggin plugins
+    #[cfg(not(debug_assertions))]
+    app_builder.add_plugins(plugins::DbgPlugs);
+
+    // Run app
+    app_builder.run();
 }
