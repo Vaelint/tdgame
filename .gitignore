@@ -9,3 +9,6 @@
 
 ## Log Files
 *.log
+
+## Project Debug files
+levels/dbgworld.ron

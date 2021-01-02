@@ -56,12 +56,12 @@ impl Tower {
     /// Spawns a default tower
     ///
     /// Used for debugging purposes
-    pub fn spawn_test_towers(commands: &mut Commands) {
+    fn spawn_test_towers(commands: &mut Commands) {
         Self::spawn_tower(commands, Self::default());
     }
 
     /// Print out the debug representation of all changed towers
-    pub fn log_towers(query: Query<(&Tower, &DebugSwitch), Changed<Tower>>) {
+    fn log_towers(query: Query<(&Tower, &DebugSwitch), Changed<Tower>>) {
         for tower in query.iter() {
             debug!("{:?}", tower);
         }
