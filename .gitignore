@@ -1,0 +1,9 @@
+
+## Editor Configurations
+.vs/
+.idea/
+.vscode/
+
+## Cargo
+/target
+Cargo.lock
