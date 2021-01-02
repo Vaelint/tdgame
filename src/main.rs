@@ -12,6 +12,7 @@ use simplelog::*;
 use ecs::plugins;
 
 mod ecs;
+mod editor;
 
 fn main() {
     // Setup logger
