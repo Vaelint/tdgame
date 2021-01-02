@@ -1,10 +1,11 @@
 //! General debug systems module
 
+use std::fs::File;
+use std::io::Write;
+
 use bevy::app::{AppBuilder, PluginGroup, PluginGroupBuilder};
 use bevy::prelude::*;
 use log::info;
-use std::fs::File;
-use std::io::Write;
 
 /// A group of plugins that produce the "hello world" behavior
 pub struct DbgPlugs;
@@ -49,7 +50,7 @@ mod basic {
 
         // Write scene to disk
         // TODO Don't hardcode path
-        let mut handle = File::create("levels/dbgworld.ron").unwrap();
+        let mut handle = File::create("resources/levels/dbgworld.ron").unwrap();
         write!(handle, "{}", scene_data);
     }
 }
