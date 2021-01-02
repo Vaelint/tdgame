@@ -4,6 +4,14 @@ version = "0.1.0"
 authors = ["gen"]
 edition = "2018"
 
+[[bin]]
+name = "tdclient"
+path = "src/client.rs"
+
+[[bin]]
+name = "tdeditor"
+path = "src/editor.rs"
+
 [features]
 default = ["logging"]
 

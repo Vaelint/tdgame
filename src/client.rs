@@ -2,32 +2,16 @@
 
 // TODO setup build system to run clippy without cfg
 #![warn(clippy::all)]
-#![allow(unused)]
-
-use std::fs::File;
 
 use bevy::prelude::*;
 use simplelog::*;
+use std::fs::File;
+use tdcore::plugins;
 
-use ecs::plugins;
-
-mod ecs;
-mod editor;
+mod tdcore;
 
 fn main() {
-    // Setup logger
-    #[cfg(logging)]
-        CombinedLogger::init(vec![
-        // Terminal Output
-        TermLogger::new(LevelFilter::Warn, Config::default(), TerminalMode::Mixed),
-        // File Output
-        WriteLogger::new(
-            LevelFilter::Info,
-            Config::default(),
-            File::create("debug.log").unwrap(),
-        ),
-    ])
-    .unwrap();
+    tdcore::dbg::logging::init_logger();
 
     // Start Bevy App
     let mut app_builder = App::build();

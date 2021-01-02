@@ -1,7 +1,7 @@
 //! TDGame ECS implementation module
 
 mod components;
-mod dbg;
+pub mod dbg;
 
 /// Plugin rexport module
 ///
@@ -20,8 +20,8 @@ mod dbg;
 /// ```
 ///
 pub mod plugins {
-    use super::*;
-
     pub use components::tower::TowerPlug;
     pub use dbg::DbgPlugs;
+
+    use super::*;
 }
