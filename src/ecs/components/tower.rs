@@ -12,7 +12,7 @@ pub struct TowerPlug;
 impl Plugin for TowerPlug {
     fn build(&self, app: &mut AppBuilder) {
         app.add_startup_system(Tower::spawn_test_towers.system())
-            .add_system(Tower::debug_towers.system());
+            .add_system(Tower::log_towers.system());
     }
 }
 
@@ -56,9 +56,9 @@ impl Tower {
     }
 
     /// Print out the debug representaiton of all towers
-    pub fn debug_towers(query: Query<&Tower, With<DebugSwitch>>) {
+    pub fn log_towers(query: Query<&Tower, With<DebugSwitch>>) {
         for tower in query.iter() {
-            println!("{:?}", tower);
+            debug!("{:?}", tower);
         }
     }
 }

@@ -31,7 +31,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugin(plugins::TowerPlug);
 
-    // Add debuggin plugins
+    // Add debugging plugins
     #[cfg(not(debug_assertions))]
     app_builder.add_plugins(plugins::DbgPlugs);
 
