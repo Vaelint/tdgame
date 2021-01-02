@@ -10,11 +10,16 @@ use simplelog::*;
 use std::fs::File;
 
 mod ecs;
+mod gameworld;
+
 
 fn main() {
     // Setup logger
+    #[cfg(logging)]
     CombinedLogger::init(vec![
+        // Terminal Output
         TermLogger::new(LevelFilter::Warn, Config::default(), TerminalMode::Mixed),
+        // File Output
         WriteLogger::new(
             LevelFilter::Info,
             Config::default(),
