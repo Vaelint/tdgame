@@ -32,7 +32,7 @@ fn main() {
         .add_plugin(plugins::TowerPlug);
 
     // Add debugging plugins
-    #[cfg(not(debug_assertions))]
+    #[cfg(debug_assertions)]
     app_builder.add_plugins(plugins::DbgPlugs);
 
     // Run app
