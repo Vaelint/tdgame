@@ -3,16 +3,17 @@
 // TODO setup build system to run clippy without cfg
 #![warn(clippy::all)]
 
-use bevy::prelude::*;
-use simplelog::*;
 use std::fs::File;
-use tdcore::plugins;
+
+use bevy::prelude::*;
+
+use tdcore::prelude::*;
 
 mod tdcore;
 
 fn main() {
     // Init logging
-    tdcore::dbg::logging::init_logger();
+    init_logger();
 
     // Start Bevy App
     let mut app_builder = App::build();

@@ -1,7 +1,7 @@
 //! TDGame ECS implementation module
 
 mod components;
-pub mod dbg;
+mod dbg;
 
 /// Plugin reexport module
 ///
@@ -25,3 +25,9 @@ pub mod plugins {
 
     use super::*;
 }
+
+pub mod prelude {
+    pub use super::dbg::logging::*;
+    pub use super::plugins;
+}
+

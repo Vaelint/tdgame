@@ -56,6 +56,11 @@ mod basic {
 }
 
 pub mod logging {
+    use std::fs::File;
+
+    pub use log::{debug, error, info, trace};
+    use simplelog::*;
+
     pub fn init_logger() {
         // Setup logger
         #[cfg(logging)]
