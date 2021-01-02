@@ -11,4 +11,4 @@
 *.log
 
 ## Project Debug files
-levels/dbgworld.ron
+**/dbgworld.ron
