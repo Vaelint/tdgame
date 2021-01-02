@@ -12,7 +12,6 @@ use std::fs::File;
 mod ecs;
 mod gameworld;
 
-
 fn main() {
     // Setup logger
     #[cfg(logging)]

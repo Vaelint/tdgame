@@ -3259,6 +3259,8 @@ dependencies = [
  "bevy",
  "derive_more",
  "log",
+ "ron",
+ "serde",
  "simplelog",
 ]
 
