@@ -6,32 +6,21 @@ use tdcore::plugins;
 
 mod tdcore;
 
-pub struct LevelEditorPlug;
-
-impl Plugin for LevelEditorPlug {
-    fn build(&self, app: &mut AppBuilder) {
-        unimplemented!()
-    }
+fn init_world() {
+    init_camera();
+    init_ui();
 }
 
-pub struct LevelEditor;
+fn init_camera() {
+    unimplemented!();
+}
 
-impl LevelEditor {
-    fn init_world() {
-        Self::init_camera();
-        Self::init_ui()
-    }
-
-    fn init_camera() {
-        unimplemented!();
-    }
-
-    fn init_ui() {
-        unimplemented!();
-    }
+fn init_ui() {
+    unimplemented!();
 }
 
 fn main() {
+    // Init logging
     tdcore::dbg::logging::init_logger();
 
     // Start Bevy App

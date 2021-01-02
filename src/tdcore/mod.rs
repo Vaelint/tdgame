@@ -3,10 +3,10 @@
 mod components;
 pub mod dbg;
 
-/// Plugin rexport module
+/// Plugin reexport module
 ///
 /// Makes it easier to import the plugins in this ecs module.
-/// Done by rexporting all the plugins in this plugin module.
+/// Done by reexporting all the plugins in this plugin module.
 ///
 /// # Examples:
 /// Allows use of:

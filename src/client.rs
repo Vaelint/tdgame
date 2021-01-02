@@ -11,6 +11,7 @@ use tdcore::plugins;
 mod tdcore;
 
 fn main() {
+    // Init logging
     tdcore::dbg::logging::init_logger();
 
     // Start Bevy App
