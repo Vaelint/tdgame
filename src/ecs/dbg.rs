@@ -1,3 +1,5 @@
+//! General debug systems module
+
 use bevy::app::{AppBuilder, PluginGroup, PluginGroupBuilder};
 use bevy::prelude::*;
 
