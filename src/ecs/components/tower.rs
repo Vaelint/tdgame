@@ -47,10 +47,10 @@ impl Tower {
     /// Spawns a tower entity
     fn spawn_tower(commands: &mut Commands, tower: Tower) {
         #[cfg(not(debug_assertions))]
-            commands.spawn((&tower, 0));
+            commands.spawn((tower, 0));
 
         #[cfg(debug_assertions)]
-            commands.spawn((&tower, DebugSwitch::new(true)));
+            commands.spawn((tower, DebugSwitch::new(true)));
     }
 
     /// Spawns a default tower
@@ -60,8 +60,8 @@ impl Tower {
         Self::spawn_tower(commands, Self::default());
     }
 
-    /// Print out the debug representaiton of all towers
-    pub fn log_towers(query: Query<&Tower, With<DebugSwitch>>) {
+    /// Print out the debug representation of all changed towers
+    pub fn log_towers(query: Query<(&Tower, &DebugSwitch), Changed<Tower>>) {
         for tower in query.iter() {
             debug!("{:?}", tower);
         }

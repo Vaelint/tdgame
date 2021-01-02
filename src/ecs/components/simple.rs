@@ -18,7 +18,8 @@ impl Plugin for SimpleComponentsPlug {
 }
 
 /// Accumulator component
-#[derive(Debug, Display, From, Into, Constructor, Reflect)]
+#[derive(Debug, Display, From, Into, Constructor, Reflect, Default)]
+#[reflect(Component)]
 pub struct Accumulator(pub isize);
 
 /// Debug switch component
