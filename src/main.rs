@@ -4,18 +4,19 @@
 #![warn(clippy::all)]
 #![allow(unused)]
 
-use bevy::prelude::*;
-use ecs::plugins;
-use simplelog::*;
 use std::fs::File;
 
+use bevy::prelude::*;
+use simplelog::*;
+
+use ecs::plugins;
+
 mod ecs;
-mod gameworld;
 
 fn main() {
     // Setup logger
     #[cfg(logging)]
-    CombinedLogger::init(vec![
+        CombinedLogger::init(vec![
         // Terminal Output
         TermLogger::new(LevelFilter::Warn, Config::default(), TerminalMode::Mixed),
         // File Output
