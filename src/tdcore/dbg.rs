@@ -27,6 +27,7 @@ mod basic {
         fn build(&self, app: &mut AppBuilder) {
             app.add_startup_system(hello_world.system())
                 .add_startup_system(hello_log.system())
+                .add_default_stages()
                 .add_startup_system(save_world.system());
         }
     }
@@ -50,7 +51,7 @@ mod basic {
 
         // Write scene to disk
         // TODO Don't hardcode path
-        let mut handle = File::create("resources/levels/dbgworld.ron").unwrap();
+        let mut handle = File::create("res/levels/dbgworld.ron").unwrap();
         write!(handle, "{}", scene_data);
     }
 }
