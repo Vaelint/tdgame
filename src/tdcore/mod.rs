@@ -1,6 +1,7 @@
 //! TDGame ECS implementation module
 
 pub(crate) mod client;
+mod common;
 pub mod dbg;
 pub mod ecs;
 pub(crate) mod editor;
@@ -22,6 +23,7 @@ pub(crate) mod editor;
 /// ```
 ///
 pub mod plugins {
+    pub use common::InitWorldPlug;
     pub use dbg::DbgPlugs;
     pub use ecs::tower::TowerPlug;
 

@@ -10,6 +10,7 @@ use log::info;
 mod basic;
 pub mod logging;
 
+
 /// Collection of debug plugins
 ///
 /// A Bevy PluginGroup for general debugging

@@ -21,11 +21,12 @@ fn main() {
     // Add core Plugins
     app_builder
         .add_plugins(DefaultPlugins)
-        .add_plugin(plugins::TowerPlug);
+        .add_plugin(TowerPlug)
+        .add_plugin(InitWorldPlug);
 
     // Add debugging plugins
     #[cfg(debug_assertions)]
-    app_builder.add_plugins(plugins::DbgPlugs);
+        app_builder.add_plugins(DbgPlugs);
 
     // Run app
     app_builder.run();

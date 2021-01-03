@@ -32,6 +32,6 @@ fn save_world(world: &mut World, resources: &mut Resources) {
 
     // Write scene to disk
     // TODO Don't hardcode path
-    let mut handle = File::create("res/levels/dbgworld.ron").unwrap();
+    let mut handle = File::create("res/lvls/dbgworld.ron").unwrap();
     write!(handle, "{}", scene_data);
 }
