@@ -23,7 +23,7 @@ mod load_screen {
         mut materials: ResMut<Assets<ColorMaterial>>,
     ) {
         // Load App Icon
-        let texture_handle = asset_server.load("./res/tex/icon.png");
+        let texture_handle = asset_server.load("tex/icon.png");
 
         // Spawn sprite using app icon
         commands.spawn(SpriteBundle {
