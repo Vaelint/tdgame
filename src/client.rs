@@ -3,8 +3,6 @@
 // TODO setup build system to run clippy without cfg
 #![warn(clippy::all)]
 
-use std::fs::File;
-
 use bevy::prelude::*;
 
 use tdcore::prelude::*;

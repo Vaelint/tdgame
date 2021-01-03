@@ -1,15 +1,9 @@
 //! General debug systems module
 
-use std::fs::File;
-use std::io::Write;
-
-use bevy::app::{AppBuilder, PluginGroup, PluginGroupBuilder};
-use bevy::prelude::*;
-use log::info;
+use bevy::app::{PluginGroup, PluginGroupBuilder};
 
 mod basic;
 pub mod logging;
-
 
 /// Collection of debug plugins
 ///

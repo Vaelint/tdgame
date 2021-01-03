@@ -2,7 +2,6 @@
 
 use bevy::app::AppBuilder;
 use bevy::prelude::*;
-use bevy::reflect::TypeRegistry;
 use log::debug;
 
 // Import simple ECS components

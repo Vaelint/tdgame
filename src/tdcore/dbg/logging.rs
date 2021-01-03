@@ -1,6 +1,5 @@
 use std::fs::File;
 
-pub use log::{debug, error, info, trace};
 use simplelog::*;
 
 pub fn init_logger() {

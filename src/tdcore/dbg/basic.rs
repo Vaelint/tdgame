@@ -1,6 +1,8 @@
-use bevy::reflect::TypeRegistry;
+use std::fs::File;
+use std::io::Write;
 
-use super::*;
+use bevy::prelude::*;
+use bevy::reflect::TypeRegistry;
 
 pub struct BasicDbgPlug;
 
@@ -33,5 +35,15 @@ fn save_world(world: &mut World, resources: &mut Resources) {
     // Write scene to disk
     // TODO Don't hardcode path
     let mut handle = File::create("res/lvls/dbgworld.ron").unwrap();
-    write!(handle, "{}", scene_data);
+    let write = write!(handle, "{}", scene_data);
+
+    match write {
+        // TODO hardcoding
+        Ok(_) => {
+            info!("Successfully saved dbgworld.ron")
+        }
+        Err(_) => {
+            error!("failed to save dbgworld.ron")
+        }
+    }
 }

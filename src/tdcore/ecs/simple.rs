@@ -4,7 +4,7 @@
 //! that don't require complex implementation.
 
 use bevy::prelude::*;
-use derive_more::{Add, AsMut, AsRef, Constructor, Display, From, Into};
+use derive_more::{Constructor, Display, From, Into};
 
 pub struct SimpleComponentsPlug;
 

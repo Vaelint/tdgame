@@ -1,13 +1,7 @@
-//! Editor specific core functionality mod
-
-use bevy::prelude::*;
-
-use init::*;
-
-use super::dbg::*;
+//! Editor specific core functionality module
 
 pub(crate) mod init;
 
 pub mod prelude {
-    pub use super::init::*;
+    pub(crate) use super::init::*;
 }
