@@ -1,7 +1,9 @@
 //! TDGame ECS implementation module
 
-mod components;
-mod dbg;
+pub(crate) mod client;
+pub mod dbg;
+pub mod ecs;
+pub(crate) mod editor;
 
 /// Plugin reexport module
 ///
@@ -20,13 +22,16 @@ mod dbg;
 /// ```
 ///
 pub mod plugins {
-    pub use components::tower::TowerPlug;
     pub use dbg::DbgPlugs;
+    pub use ecs::tower::TowerPlug;
 
     use super::*;
 }
 
+/// Public exports module
+///
+/// Also imports plugins module
 pub mod prelude {
     pub use super::dbg::logging::*;
-    pub use super::plugins;
+    pub use super::plugins::*;
 }

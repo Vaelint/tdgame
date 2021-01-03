@@ -1,4 +1,4 @@
-//! ECS Components module
+//! General ECS impl module
 
 pub mod simple;
 pub mod tower;
