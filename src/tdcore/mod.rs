@@ -2,9 +2,12 @@
 
 pub(crate) mod client;
 mod common;
-pub mod dbg;
 pub mod ecs;
 pub(crate) mod editor;
+
+// Optional deps
+#[cfg(debug_assertions)]
+pub mod dbg;
 
 /// Plugin reexport module
 ///
@@ -24,6 +27,7 @@ pub(crate) mod editor;
 ///
 pub mod plugins {
     pub use common::InitWorldPlug;
+    #[cfg(debug_assertions)]
     pub use dbg::DbgPlugs;
     pub use ecs::tower::TowerPlug;
     pub use editor::EditorInitPlug;
@@ -35,6 +39,8 @@ pub mod plugins {
 ///
 /// Also imports plugins module
 pub mod prelude {
+    #[cfg(logging)]
     pub use super::dbg::logging::*;
+    pub use super::ecs::simple::*;
     pub use super::plugins::*;
 }

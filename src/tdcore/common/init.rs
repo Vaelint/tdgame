@@ -21,6 +21,7 @@ impl Plugin for InitWorldPlug {
 /// Initializes editor app
 fn init_world() {
     // Initialize logger
+    #[cfg(logging)]
     init_logger();
 }
 
