@@ -24,10 +24,17 @@ mod load_screen {
     ) {
         // Load App Icon
         let texture_handle = asset_server.load("tex/icon.png");
+        let material_handle = materials.add(texture_handle.into());
 
-        // Spawn sprite using app icon
+        spawn_main_sprite(commands, material_handle);
+
+    }
+
+    fn spawn_main_sprite(commands: &mut Commands,mat: Handle<ColorMaterial>) {
+        // Spawn sprite using provided texture
         commands.spawn(SpriteBundle {
-            material: materials.add(texture_handle.into()),
+            material: mat,
+            transform: Transform::from_scale(Vec3::new(10.0, 10.0, 1.0)),
             ..Default::default()
         });
     }
