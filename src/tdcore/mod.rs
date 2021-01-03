@@ -26,6 +26,7 @@ pub mod plugins {
     pub use common::InitWorldPlug;
     pub use dbg::DbgPlugs;
     pub use ecs::tower::TowerPlug;
+    pub use editor::EditorInitPlug;
 
     use super::*;
 }

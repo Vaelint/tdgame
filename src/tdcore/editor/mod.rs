@@ -1,7 +1,10 @@
 //! Editor specific core functionality module
 
-pub(crate) mod init;
+pub use init::EditorInitPlug;
 
+pub mod init;
+
+/// Public reexports module.
 pub mod prelude {
-    pub(crate) use super::init::*;
+    pub use super::init::*;
 }

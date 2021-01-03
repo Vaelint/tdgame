@@ -46,10 +46,10 @@ impl Tower {
     /// Spawns a tower entity
     fn spawn_tower(commands: &mut Commands, tower: Tower) {
         #[cfg(not(debug_assertions))]
-            commands.spawn((tower, Transform::default()));
+        commands.spawn((tower, Transform::default()));
 
         #[cfg(debug_assertions)]
-            commands.spawn((tower, Transform::default(), DebugSwitch::new(true)));
+        commands.spawn((tower, Transform::default(), DebugSwitch::new(true)));
     }
 
     /// Spawns a default tower

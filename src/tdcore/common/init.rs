@@ -19,7 +19,7 @@ impl Plugin for InitWorldPlug {
 }
 
 /// Initializes editor app
-fn init_world(_commands: &mut Commands) {
+fn init_world() {
     // Initialize logger
     init_logger();
 }

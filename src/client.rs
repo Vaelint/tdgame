@@ -24,7 +24,7 @@ fn main() {
 
     // Add debugging plugins
     #[cfg(debug_assertions)]
-        app_builder.add_plugins(DbgPlugs);
+    app_builder.add_plugins(DbgPlugs);
 
     // Run app
     app_builder.run();

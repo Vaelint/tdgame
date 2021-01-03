@@ -3,4 +3,4 @@
 // Reexport modules
 pub use init::*;
 
-pub(crate) mod init;
+pub mod init;

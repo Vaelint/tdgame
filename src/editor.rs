@@ -18,9 +18,12 @@ fn main() {
         .add_plugin(TowerPlug)
         .add_plugin(InitWorldPlug);
 
+    // Add Editor plugins
+    app_builder.add_plugin(EditorInitPlug);
+
     // Add debugging plugins
     #[cfg(debug_assertions)]
-        app_builder.add_plugins(DbgPlugs);
+    app_builder.add_plugins(DbgPlugs);
 
     // Build & run app
     app_builder.run();
