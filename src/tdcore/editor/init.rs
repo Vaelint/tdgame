@@ -17,24 +17,52 @@ impl Plugin for EditorInitPlug {
 mod load_screen {
     use bevy::prelude::*;
 
+    use crate::tdcore::common::load_mat;
+
     pub fn setup(
         commands: &mut Commands,
         asset_server: Res<AssetServer>,
         mut materials: ResMut<Assets<ColorMaterial>>,
     ) {
-        // Load App Icon
-        let texture_handle = asset_server.load("tex/icon.png");
-        let material_handle = materials.add(texture_handle.into());
+        // Load materials
+        let icon_mat_handle = load_mat(&asset_server, &mut materials, "tex/icon.png");
+        let spinner_mat_handle = load_mat(&asset_server, &mut materials, "tex/spinner.png");
 
-        spawn_main_sprite(commands, material_handle);
-
+        // Spawn entities
+        spawn_main_sprite(commands, icon_mat_handle);
+        spawn_progress_spinner(commands, spinner_mat_handle);
     }
 
-    fn spawn_main_sprite(commands: &mut Commands,mat: Handle<ColorMaterial>) {
+    /// Spawns an ent w/ a sprite component in the center of the screen
+    fn spawn_main_sprite(commands: &mut Commands, mat: Handle<ColorMaterial>) {
+        // Create transform matrix
+        let trans_mat = Mat4::from_scale_rotation_translation(
+            Vec3::one(),
+            Quat::identity(),
+            Vec3::zero(),
+        );
+
         // Spawn sprite using provided texture
         commands.spawn(SpriteBundle {
             material: mat,
-            transform: Transform::from_scale(Vec3::new(10.0, 10.0, 1.0)),
+            transform: Transform::from_matrix(trans_mat),
+            ..Default::default()
+        });
+    }
+
+    /// Spawns progress spinner ent
+    fn spawn_progress_spinner(commands: &mut Commands, mat: Handle<ColorMaterial>) {
+        // Create transform matrix
+        let matrix = Mat4::from_scale_rotation_translation(
+            (0.1, 0.1, 1.0).into(),
+            Quat::identity(),
+            (0.0, -250.0, 0.0).into(),
+        );
+
+        // Spawn sprite using provided texture
+        commands.spawn(SpriteBundle {
+            material: mat,
+            transform: Transform::from_matrix(matrix),
             ..Default::default()
         });
     }
