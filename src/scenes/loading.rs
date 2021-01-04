@@ -5,9 +5,9 @@ use bevy::ui::{PositionType, Val};
 use crate::ecs::*;
 
 /// Bevy plugin for handling editor initialization
-pub struct LoadScreenInitPlug;
+pub struct LoadScreenPlug;
 
-impl Plugin for LoadScreenInitPlug {
+impl Plugin for LoadScreenPlug {
     fn build(&self, app: &mut AppBuilder) {
         app.add_startup_system(setup.system())
             .init_resource::<LoadScreenResources>();
