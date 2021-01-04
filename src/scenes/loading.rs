@@ -86,7 +86,7 @@ fn spawn_loading_text(commands: &mut Commands, lscrn_res: Res<LoadScreenResource
             ..Default::default()
         },
         text: Text {
-            value: format!("CatGame version {}", env!("CARGO_PKG_VERSION")),
+            value: format!("TDGame version {}", env!("CARGO_PKG_VERSION")),
             font: lscrn_res.fira_bold_fnt.clone(),
             style: TextStyle {
                 font_size: 60.0,
