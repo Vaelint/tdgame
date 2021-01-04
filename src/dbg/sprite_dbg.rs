@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::tdcore::prelude::*;
+use crate::coremod::prelude::*;
 
 /// Bevy plugin for debugging sprites
 pub struct SpriteDbgPlug;

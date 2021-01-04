@@ -1,7 +1,6 @@
 //! General debug systems module
 
 use bevy::app::{PluginGroup, PluginGroupBuilder};
-
 // Public Exports
 #[cfg(logging)]
 pub use logging::*;

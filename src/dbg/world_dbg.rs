@@ -1,8 +1,7 @@
-use std::fs::File;
-use std::io::Write;
-
 use bevy::prelude::*;
 use bevy::reflect::TypeRegistry;
+use std::fs::File;
+use std::io::Write;
 
 pub fn save_active_world(world: &mut World, resources: &mut Resources) {
     // Get type registry

@@ -1,10 +1,9 @@
+use bevy::prelude::*;
+use bevy::reflect::TypeRegistry;
 use std::fs::File;
 use std::io::Write;
 
-use bevy::prelude::*;
-use bevy::reflect::TypeRegistry;
-
-use crate::tdcore::ecs::simple::DebugSwitch;
+use crate::coremod::ecs::simple::DebugSwitch;
 
 pub struct BasicDbgPlug;
 

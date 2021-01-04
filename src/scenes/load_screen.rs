@@ -2,8 +2,21 @@ use bevy::prelude::*;
 use bevy::prelude::*;
 use bevy::ui::{AlignSelf, PositionType, Val};
 
-use crate::tdcore::common::load_mat;
-use crate::tdcore::ecs::simple::Rotating;
+use crate::coremod::common::load_mat;
+use crate::coremod::ecs::simple::Rotating;
+
+/// Bevy plugin for handling editor initialization
+pub struct EditorInitPlug;
+
+impl Plugin for EditorInitPlug {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_startup_system(load_screen::setup.system())
+            .init_resource::<load_screen::LoadScreenResources>();
+    }
+    fn name(&self) -> &str {
+        "EditorInitPlugin"
+    }
+}
 
 pub struct LoadScreenResources {
     icon_mat: Handle<ColorMaterial>,
