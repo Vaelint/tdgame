@@ -9,8 +9,10 @@ pub struct LoadScreenPlug;
 
 impl Plugin for LoadScreenPlug {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(setup.system())
-            .init_resource::<LoadScreenResources>();
+        app.init_resource::<LoadScreenResources>()
+            .add_startup_system(spawn_loading_text.system())
+            .add_startup_system(spawn_progress_spinner.system())
+            .add_startup_system(spawn_main_sprite.system());
     }
 }
 
@@ -35,34 +37,22 @@ impl FromResources for LoadScreenResources {
     }
 }
 
-/// Creates the loading screen scene
-pub fn setup(commands: &mut Commands, lscrn_res: Res<LoadScreenResources>) {
-    // Spawn entities
-    spawn_main_sprite(commands, lscrn_res.icon_mat.clone());
-    spawn_progress_spinner(commands, lscrn_res.spinner_mat.clone());
-    spawn_loading_text(
-        commands,
-        lscrn_res.fira_bold_fnt.clone(),
-        format!("CatGame: version {}", env!("CARGO_PKG_VERSION")),
-    );
-}
-
 /// Spawns an ent w/ a sprite component in the center of the screen
-fn spawn_main_sprite(commands: &mut Commands, mat: Handle<ColorMaterial>) {
+fn spawn_main_sprite(commands: &mut Commands, lscrn_res: Res<LoadScreenResources>) {
     // Create transform matrix
     let trans_mat =
         Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
 
     // Spawn sprite using provided texture
     commands.spawn(SpriteBundle {
-        material: mat,
+        material: lscrn_res.icon_mat.clone(),
         transform: Transform::from_matrix(trans_mat),
         ..Default::default()
     });
 }
 
 /// Spawns progress spinner ent
-fn spawn_progress_spinner(commands: &mut Commands, mat: Handle<ColorMaterial>) {
+fn spawn_progress_spinner(commands: &mut Commands, lscrn_res: Res<LoadScreenResources>) {
     // Create transform matrix
     let trans_mat = Mat4::from_scale_rotation_translation(
         (0.1, 0.1, 1.0).into(),
@@ -73,7 +63,7 @@ fn spawn_progress_spinner(commands: &mut Commands, mat: Handle<ColorMaterial>) {
     // Spawn spinner
     commands
         .spawn(SpriteBundle {
-            material: mat,
+            material: lscrn_res.spinner_mat.clone(),
             transform: Transform::from_matrix(trans_mat),
             ..Default::default()
         })
@@ -81,7 +71,7 @@ fn spawn_progress_spinner(commands: &mut Commands, mat: Handle<ColorMaterial>) {
 }
 
 /// Spawns loading text entity
-fn spawn_loading_text(commands: &mut Commands, fnt_handle: Handle<Font>, text: String) {
+fn spawn_loading_text(commands: &mut Commands, lscrn_res: Res<LoadScreenResources>) {
     commands.spawn(TextBundle {
         style: Style {
             // Setup Margin
@@ -95,8 +85,8 @@ fn spawn_loading_text(commands: &mut Commands, fnt_handle: Handle<Font>, text: S
             ..Default::default()
         },
         text: Text {
-            value: text.to_string(),
-            font: fnt_handle,
+            value: format!("CatGame version {}", env!("CARGO_PKG_VERSION")),
+            font: lscrn_res.fira_bold_fnt.clone(),
             style: TextStyle {
                 font_size: 60.0,
                 color: Color::BLACK,
