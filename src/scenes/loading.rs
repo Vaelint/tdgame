@@ -11,9 +11,9 @@ pub struct LoadScreenPlug;
 impl Plugin for LoadScreenPlug {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<LoadScreenResources>()
-            .add_system_to_stage(LOADING, spawn_main_sprite.system())
-            .add_system_to_stage(LOADING, spawn_loading_text.system())
-            .add_system_to_stage(LOADING, spawn_progress_spinner.system());
+            .add_startup_system_to_stage(LOADING, spawn_main_sprite.system())
+            .add_startup_system_to_stage(LOADING, spawn_loading_text.system())
+            .add_startup_system_to_stage(LOADING, spawn_progress_spinner.system());
     }
 }
 
