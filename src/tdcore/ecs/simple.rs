@@ -3,6 +3,7 @@
 //! Used to wrap basic types withing structs for special functionality
 //! that don't require complex implementation.
 
+use bevy::math::quat;
 use bevy::prelude::*;
 use derive_more::{Constructor, Display, From, Into};
 
@@ -13,7 +14,11 @@ impl Plugin for SimpleComponentsPlug {
         // Register types for reflection
         app.register_type::<Accumulator>()
             .register_type::<DebugSwitch>()
-            .register_type::<DebugSwitch>();
+            .register_type::<DebugSwitch>()
+            .register_type::<Rotating>();
+
+        // Register component systems
+        app.add_system(Rotating::rotate_sys.system());
     }
 }
 
@@ -29,3 +34,19 @@ pub struct DebugSwitch(pub bool);
 /// Entity enabling/disabling component
 #[derive(Debug, Display, From, Into, Constructor, Reflect)]
 pub struct Active(pub bool);
+
+/// Entity enabling/disabling component
+#[derive(Debug, Display, From, Into, Constructor, Reflect)]
+pub struct Rotating(pub f32);
+
+impl Rotating {
+    /// Rotates an entity using provided speed
+    ///
+    /// # Note
+    /// Positive is ccw & neg is cw rotation
+    pub fn rotate_sys(time: Res<Time>, mut query: Query<(&Rotating, &mut Transform), ()>) {
+        for (rot, mut trans) in query.iter_mut() {
+            trans.rotate(Quat::from_rotation_z(rot.0 * time.delta_seconds()));
+        }
+    }
+}

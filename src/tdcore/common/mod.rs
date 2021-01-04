@@ -6,3 +6,4 @@ pub use materials::*;
 
 pub mod init;
 pub mod materials;
+pub mod resolution;

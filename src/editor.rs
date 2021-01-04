@@ -16,7 +16,8 @@ fn main() {
     app_builder
         .add_plugins(DefaultPlugins)
         .add_plugin(TowerPlug)
-        .add_plugin(InitWorldPlug);
+        .add_plugin(InitWorldPlug)
+        .add_plugin(SimpleComponentsPlug);
 
     // Add Editor plugins
     app_builder.add_plugin(EditorInitPlug);
