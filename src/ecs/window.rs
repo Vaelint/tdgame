@@ -8,7 +8,8 @@ pub struct ECSWindowPlug;
 
 impl Plugin for ECSWindowPlug {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_system(window_resolution_system.system());
+        app.add_resource(WindowResizeEventListenerState::default())
+            .add_system(window_resolution_system.system());
     }
 
     fn name(&self) -> &str {

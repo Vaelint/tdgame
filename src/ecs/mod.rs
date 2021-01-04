@@ -1,5 +1,6 @@
 //! General ECS impl module
 
+pub use plugins::*;
 pub use simple::*;
 pub use tower::*;
 pub use window::*;

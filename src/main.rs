@@ -5,7 +5,8 @@
 
 use bevy::prelude::*;
 
-use ecs::plugins::ProjectECSPlugins;
+use ecs::ProjectECSPlugins;
+use scenes::ProjectScenePlugs;
 
 mod ecs;
 mod scenes;
@@ -17,7 +18,8 @@ fn main() {
     // Add core Plugins
     app_builder
         .add_plugins(DefaultPlugins)
-        .add_plugins(ProjectECSPlugins);
+        .add_plugins(ProjectECSPlugins)
+        .add_plugins(ProjectScenePlugs);
 
     // Run app
     app_builder.run();
