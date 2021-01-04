@@ -2,10 +2,6 @@
 
 use bevy::app::AppBuilder;
 use bevy::prelude::*;
-use log::debug;
-
-// Import simple ECS components
-use super::simple::*;
 
 /// Bevy plugin for Tower Module
 pub struct TowerPlug;
@@ -13,7 +9,6 @@ pub struct TowerPlug;
 impl Plugin for TowerPlug {
     fn build(&self, app: &mut AppBuilder) {
         app.add_startup_system(Tower::spawn_test_towers.system())
-            .add_system(Tower::log_towers.system())
             .register_type::<Tower>()
             .register_type::<TowerType>();
     }
@@ -45,11 +40,7 @@ pub struct Tower {
 impl Tower {
     /// Spawns a tower entity
     fn spawn_tower(commands: &mut Commands, tower: Tower) {
-        #[cfg(not(debug_assertions))]
         commands.spawn((tower, Transform::default()));
-
-        #[cfg(debug_assertions)]
-        commands.spawn((tower, Transform::default(), DebugSwitch::new(true)));
     }
 
     /// Spawns a default tower
@@ -57,12 +48,5 @@ impl Tower {
     /// Used for debugging purposes
     fn spawn_test_towers(commands: &mut Commands) {
         Self::spawn_tower(commands, Self::default());
-    }
-
-    /// Print out the debug representation of all changed towers
-    fn log_towers(query: Query<(&Tower, &DebugSwitch), Changed<Tower>>) {
-        for tower in query.iter() {
-            debug!("{:?}", tower);
-        }
     }
 }

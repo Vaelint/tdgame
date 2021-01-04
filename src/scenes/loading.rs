@@ -1,17 +1,17 @@
+/// Loading screen module.
 use bevy::prelude::*;
-use bevy::prelude::*;
-use bevy::ui::{AlignSelf, PositionType, Val};
+use bevy::ui::{PositionType, Val};
 
-use crate::coremod::common::load_mat;
-use crate::coremod::ecs::simple::Rotating;
+use crate::ecs::*;
+use crate::scenes::loading;
 
 /// Bevy plugin for handling editor initialization
 pub struct EditorInitPlug;
 
 impl Plugin for EditorInitPlug {
     fn build(&self, app: &mut AppBuilder) {
-        app.add_startup_system(load_screen::setup.system())
-            .init_resource::<load_screen::LoadScreenResources>();
+        app.add_startup_system(setup.system())
+            .init_resource::<LoadScreenResources>();
     }
     fn name(&self) -> &str {
         "EditorInitPlugin"
@@ -28,7 +28,7 @@ impl FromResources for LoadScreenResources {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
         let mut mats = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
-        let mut asset_serv = resources.get_mut::<AssetServer>().unwrap();
+        let asset_serv = resources.get_mut::<AssetServer>().unwrap();
 
         // Load assets
         Self {
@@ -40,14 +40,14 @@ impl FromResources for LoadScreenResources {
 }
 
 /// Creates the loading screen scene
-pub fn setup(commands: &mut Commands, lscreen_res: Res<LoadScreenResources>) {
+pub fn setup(commands: &mut Commands, lscrn_res: Res<LoadScreenResources>) {
     // Spawn entities
-    spawn_main_sprite(commands, lscreen_res.icon_mat.clone());
-    spawn_progress_spinner(commands, lscreen_res.spinner_mat.clone());
+    spawn_main_sprite(commands, lscrn_res.icon_mat.clone());
+    spawn_progress_spinner(commands, lscrn_res.spinner_mat.clone());
     spawn_loading_text(
         commands,
-        lscreen_res.fira_bold_fnt.clone(),
-        format!("TDGame Editor v{}", env!("CARGO_PKG_VERSION")),
+        lscrn_res.fira_bold_fnt.clone(),
+        format!("CatGame: version {}", env!("CARGO_PKG_VERSION")),
     );
 }
 

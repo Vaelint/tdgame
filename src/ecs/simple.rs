@@ -3,7 +3,6 @@
 //! Used to wrap basic types withing structs for special functionality
 //! that don't require complex implementation.
 
-use bevy::math::quat;
 use bevy::prelude::*;
 use derive_more::{Constructor, Display, From, Into};
 

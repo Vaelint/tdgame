@@ -4,17 +4,9 @@ version = "0.1.0"
 authors = ["gen"]
 edition = "2018"
 
-[features]
-default = ["logging"]
-logging = ["simplelog"]
-
 [dependencies]
 # Misc
 derive_more = "0.99"
-
-# Logging
-log = "0.4"
-simplelog = {version = "0.9", optional = true}
 
 [dependencies.bevy]
 version = "0.4"
