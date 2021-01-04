@@ -1,5 +1,7 @@
 use bevy::app::{PluginGroup, PluginGroupBuilder};
 
+pub use stages::names::*;
+
 /// Project scenes module
 ///
 /// Implementation of Bevy Scenes for project
@@ -9,7 +11,9 @@ pub struct ProjectScenePlugs;
 
 impl PluginGroup for ProjectScenePlugs {
     fn build(&mut self, group: &mut PluginGroupBuilder) {
-        group.add(loading::LoadScreenPlug);
+        group
+            .add(stages::ProjStagePlug)
+            .add_after::<stages::ProjStagePlug, loading::LoadScreenPlug>(loading::LoadScreenPlug);
     }
 }
 
@@ -29,7 +33,7 @@ mod stages {
         }
     }
 
-    mod names {
+    pub mod names {
         /// The APP stage representing the loading screen
         pub const LOADING: &'static str = "PROJ_LOADING";
         /// App stage for game logic
