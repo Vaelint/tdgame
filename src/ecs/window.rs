@@ -3,6 +3,7 @@ use bevy::{
     window::{CreateWindow, WindowResized},
 };
 
+/// Bevy plugin for handling window information
 pub struct ECSWindowPlug;
 
 impl Plugin for ECSWindowPlug {
