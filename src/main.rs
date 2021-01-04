@@ -10,14 +10,9 @@ mod scenes;
 
 fn main() {
     // Start Bevy App
-    let mut app_builder = App::build();
-
-    // Add core Plugins
-    app_builder
+    App::build()
         .add_plugins(DefaultPlugins)
         .add_plugins(ProjectECSPlugins)
-        .add_plugins(ProjectScenePlugs);
-
-    // Run app
-    app_builder.run();
+        .add_plugins(ProjectScenePlugs)
+        .run();
 }
