@@ -3,6 +3,18 @@ use bevy::{
     window::{CreateWindow, WindowResized},
 };
 
+pub struct ECSWindowPlug;
+
+impl Plugin for ECSWindowPlug {
+    fn build(&self, app: &mut AppBuilder) {
+        app.add_system(window_resolution_system.system());
+    }
+
+    fn name(&self) -> &str {
+        "ECS Window Plugin"
+    }
+}
+
 #[derive(Default)]
 pub struct WindowResizeEventListenerState {
     pub resolution: Option<[f32; 2]>,

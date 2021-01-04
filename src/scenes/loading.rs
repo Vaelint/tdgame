@@ -3,7 +3,6 @@ use bevy::prelude::*;
 use bevy::ui::{PositionType, Val};
 
 use crate::ecs::*;
-use crate::scenes::loading;
 
 /// Bevy plugin for handling editor initialization
 pub struct EditorInitPlug;

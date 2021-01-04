@@ -4,9 +4,9 @@ pub use simple::*;
 pub use tower::*;
 pub use window::*;
 
-mod window;
 mod simple;
 mod tower;
+mod window;
 
 pub mod plugins {
     use bevy::app::{PluginGroup, PluginGroupBuilder};
@@ -20,8 +20,9 @@ pub mod plugins {
     impl PluginGroup for ProjectECSPlugins {
         fn build(&mut self, group: &mut PluginGroupBuilder) {
             group
-                .add(tower::TowerPlug)
-                .add(simple::SimpleComponentsPlug);
+                .add(TowerPlug)
+                .add(ECSWindowPlug)
+                .add(SimpleComponentsPlug);
         }
     }
 }
