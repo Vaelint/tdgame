@@ -44,8 +44,6 @@ impl Tower {
     }
 
     /// Spawns a default tower
-    ///
-    /// Used for debugging purposes
     fn spawn_test_towers(commands: &mut Commands) {
         Self::spawn_tower(commands, Self::default());
     }

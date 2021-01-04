@@ -11,8 +11,7 @@ pub struct SimpleComponentsPlug;
 impl Plugin for SimpleComponentsPlug {
     fn build(&self, app: &mut AppBuilder) {
         // Register types for reflection
-        app
-            .register_type::<Rotating>();
+        app.register_type::<Rotating>();
 
         // Register component systems
         app.add_system(Rotating::rotate_sys.system());

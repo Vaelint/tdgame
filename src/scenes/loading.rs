@@ -12,9 +12,6 @@ impl Plugin for LoadScreenPlug {
         app.add_startup_system(setup.system())
             .init_resource::<LoadScreenResources>();
     }
-    fn name(&self) -> &str {
-        "EditorInitPlugin"
-    }
 }
 
 pub struct LoadScreenResources {

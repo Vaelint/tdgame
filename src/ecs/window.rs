@@ -11,10 +11,6 @@ impl Plugin for ECSWindowPlug {
         app.add_resource(WindowResizeEventListenerState::default())
             .add_system(window_resolution_system.system());
     }
-
-    fn name(&self) -> &str {
-        "ECS Window Plugin"
-    }
 }
 
 #[derive(Default)]
