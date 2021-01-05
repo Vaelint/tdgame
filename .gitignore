@@ -12,3 +12,8 @@
 
 ## Project Debug files
 **/dbgworld.ron
+### Saved breakpoints
+breakpoints
+.break
+### Game executable copied into project root
+tdgame
