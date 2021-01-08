@@ -17,3 +17,7 @@ breakpoints
 .break
 ### Game executable copied into project root
 tdgame
+
+## Bevy build features
+.cargo/config.toml
+.cargo/config.toml.opt
