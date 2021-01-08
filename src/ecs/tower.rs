@@ -29,8 +29,6 @@ impl Default for TowerType {
 }
 
 /// Tower Component
-///
-/// TODO Make less granular
 #[derive(Debug, Default, Reflect)]
 #[reflect(Component)]
 pub struct Tower {
