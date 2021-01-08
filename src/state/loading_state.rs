@@ -1,7 +1,7 @@
 use bevy::prelude::*;
 
 use crate::ecs::Rotating;
-use crate::state::appstate::AppStates;
+use crate::state::AppStates;
 use crate::state::STAGE_LOADING;
 
 /// App loading state
