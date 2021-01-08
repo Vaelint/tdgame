@@ -5,6 +5,7 @@
 #![warn(missing_docs, missing_debug_implementations)]
 
 use bevy::prelude::*;
+use bevy::input::system::exit_on_esc_system;
 
 use ecs::ProjectECSPlugins;
 use state::ProjectStatePlugs;
@@ -19,5 +20,7 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugins(ProjectECSPlugins)
         .add_plugins(ProjectStatePlugs)
+        // TODO Temporary plug for early dev
+        .add_system(exit_on_esc_system.system())
         .run();
 }
