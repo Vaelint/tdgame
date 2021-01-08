@@ -27,7 +27,7 @@ impl Rotating {
     ///
     /// # Note
     /// Positive is ccw & neg is cw rotation
-    pub fn rotate_sys(time: Res<Time>, mut query: Query<(&Rotating, &mut Transform), ()>) {
+    pub fn rotate_sys(time: Res<'_, Time>, mut query: Query<'_, (&Rotating, &mut Transform), ()>) {
         for (rot, mut trans) in query.iter_mut() {
             trans.rotate(Quat::from_rotation_z(rot.0 * time.delta_seconds()));
         }

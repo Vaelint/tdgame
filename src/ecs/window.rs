@@ -21,9 +21,9 @@ pub struct WindowResizeEventListenerState {
 }
 
 pub fn window_resolution_system(
-    mut state: ResMut<WindowResizeEventListenerState>,
-    create_events: ResMut<Events<CreateWindow>>,
-    resize_events: ResMut<Events<WindowResized>>,
+    mut state: ResMut<'_, WindowResizeEventListenerState>,
+    create_events: ResMut<'_, Events<CreateWindow>>,
+    resize_events: ResMut<'_, Events<WindowResized>>,
 ) {
     for event in state.create_events.iter(&create_events) {
         state.resolution = Some([event.descriptor.width, event.descriptor.height]);
