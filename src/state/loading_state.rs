@@ -1,3 +1,5 @@
+//! Loading screen implementation module
+
 use bevy::prelude::*;
 
 use crate::ecs::Rotating;
