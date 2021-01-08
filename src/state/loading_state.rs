@@ -4,10 +4,10 @@ use crate::ecs::Rotating;
 use crate::state::AppStates;
 use crate::state::STAGE_LOADING;
 
-/// App loading state
+/// Loading state logic
 struct LoadState;
 
-/// Resources for loading state
+/// Resources needed by LoadState
 #[allow(unused)]
 struct LoadStateRes {
     pub(crate) icon_mat: Handle<ColorMaterial>,
@@ -15,7 +15,7 @@ struct LoadStateRes {
     pub(crate) fira_bold_fnt: Handle<Font>,
 }
 
-/// Bevy plugin for loading state
+/// Bevy plugin for LoadState
 pub struct LoadStatePlugin;
 
 // Initialization logic block
