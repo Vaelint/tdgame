@@ -1,6 +1,8 @@
 use bevy::app::PluginGroupBuilder;
 use bevy::prelude::*;
 
+pub use stages::*;
+
 /// Project scenes module
 ///
 /// Implementation of Bevy Scenes for project
@@ -12,8 +14,16 @@ pub struct ProjectStatePlugs;
 /// Plugin adding the game's states
 pub struct GameStatePlug;
 
-/// Name of loading stage
-pub const STAGE_LOADING: &'static str = "ST_LOAD";
+/// Stages module
+#[allow(unused)]
+mod stages {
+    /// Name of loading stage
+    pub const STAGE_LOADING: &'static str = "ST_LOAD";
+    /// Name of menu state
+    pub const STAGE_MENU: &'static str = "ST_MENU";
+    /// Name of main gameplay state
+    pub const STATE_GAME: &'static str = "ST_GAME";
+}
 
 /// Game state enum
 #[derive(Clone, Debug)]
