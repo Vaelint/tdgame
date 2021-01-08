@@ -1,3 +1,5 @@
+//! Game state management and implementation module
+
 use bevy::app::PluginGroupBuilder;
 use bevy::prelude::*;
 
