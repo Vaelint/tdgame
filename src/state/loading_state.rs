@@ -3,30 +3,29 @@
 use bevy::prelude::*;
 
 use crate::ecs::Rotating;
-use crate::state::AppStates;
-use crate::state::STAGE_LOADING;
+use crate::state::{AppStates, STAGE_LOADING};
 
 /// Loading state logic
 struct LoadState;
 
-/// Resources needed by LoadState
-#[allow(unused)]
-struct LoadStateRes {
-    pub(crate) icon_mat: Handle<ColorMaterial>,
-    pub(crate) spinner_mat: Handle<ColorMaterial>,
-    pub(crate) fira_bold_fnt: Handle<Font>,
-}
-
 /// Bevy plugin for LoadState
 pub struct LoadStatePlugin;
+
+/// Resources needed by LoadState
+#[allow(unused)]
+struct LoadStateResources {
+    pub(crate) mat_icon: Handle<ColorMaterial>,
+    pub(crate) mat_spinner: Handle<ColorMaterial>,
+    pub(crate) fnt_fira_bold: Handle<Font>,
+}
 
 // Initialization logic block
 impl LoadState {
     /// Creates entities for the LoadState
-    fn create(com: &mut Commands, res: Res<'_, LoadStateRes>) {
-        Self::spawn_progress_spinner(com, res.spinner_mat.clone());
-        Self::spawn_loading_text(com, res.fira_bold_fnt.clone());
-        Self::spawn_main_sprite(com, res.icon_mat.clone());
+    fn spawn(com: &mut Commands, res: Res<'_, LoadStateResources>) {
+        Self::spawn_sprite_progress_spinner(com, res.mat_spinner.clone());
+        Self::spawn_text_loading(com, res.fnt_fira_bold.clone());
+        Self::spawn_sprite_main(com, res.mat_icon.clone());
         Self::setup_world(com);
     }
 
@@ -52,7 +51,7 @@ impl LoadState {
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen
-    fn spawn_main_sprite(commands: &mut Commands, icon: Handle<ColorMaterial>) {
+    fn spawn_sprite_main(commands: &mut Commands, icon: Handle<ColorMaterial>) {
         // Create transform matrix
         let trans_mat =
             Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
@@ -66,7 +65,7 @@ impl LoadState {
     }
 
     /// Spawns progress spinner ent
-    fn spawn_progress_spinner(commands: &mut Commands, spinner: Handle<ColorMaterial>) {
+    fn spawn_sprite_progress_spinner(commands: &mut Commands, spinner: Handle<ColorMaterial>) {
         // Create transform matrix
         let trans_mat = Mat4::from_scale_rotation_translation(
             (0.1, 0.1, 1.0).into(),
@@ -85,7 +84,7 @@ impl LoadState {
     }
 
     /// Spawns loading text entity
-    fn spawn_loading_text(commands: &mut Commands, font: Handle<Font>) {
+    fn spawn_text_loading(commands: &mut Commands, font: Handle<Font>) {
         commands.spawn(TextBundle {
             style: Style {
                 // Setup Margin
@@ -117,38 +116,38 @@ impl LoadState {
 
 // Update logic block
 impl LoadState {
-    fn update(_com: &mut Commands, _res: Res<'_, LoadStateRes>) {
+    fn update(_com: &mut Commands, _res: Res<'_, LoadStateResources>) {
         // Do nothing
     }
 }
 
 // destruction logic block
 impl LoadState {
-    fn destroy(_com: &mut Commands, _res: Res<'_, LoadStateRes>) {
+    fn kill(_com: &mut Commands, _res: Res<'_, LoadStateResources>) {
         // Do nothing
     }
 }
 
-impl FromResources for LoadStateRes {
+impl FromResources for LoadStateResources {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
-        let mut mats = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
-        let asset_serv = resources.get_mut::<AssetServer>().unwrap();
+        let mut res_colormat = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
+        let asset_server = resources.get_mut::<AssetServer>().unwrap();
 
         // Load assets
         Self {
-            icon_mat: mats.add(asset_serv.load("tex/icon.png").into()),
-            spinner_mat: mats.add(asset_serv.load("tex/spinner.png").into()),
-            fira_bold_fnt: asset_serv.load("fnt/FiraSans-Bold.ttf"),
+            mat_icon: res_colormat.add(asset_server.load("tex/icon.png").into()),
+            mat_spinner: res_colormat.add(asset_server.load("tex/spinner.png").into()),
+            fnt_fira_bold: asset_server.load("fnt/FiraSans-Bold.ttf"),
         }
     }
 }
 
 impl Plugin for LoadStatePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.init_resource::<LoadStateRes>()
-            .on_state_enter(STAGE_LOADING, AppStates::Load, LoadState::create.system())
+        app.init_resource::<LoadStateResources>()
+            .on_state_enter(STAGE_LOADING, AppStates::Load, LoadState::spawn.system())
             .on_state_update(STAGE_LOADING, AppStates::Load, LoadState::update.system())
-            .on_state_exit(STAGE_LOADING, AppStates::Load, LoadState::destroy.system());
+            .on_state_exit(STAGE_LOADING, AppStates::Load, LoadState::kill.system());
     }
 }
