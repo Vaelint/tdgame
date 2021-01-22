@@ -18,7 +18,6 @@ pub struct StateMenuStartupResources;
 impl StateMenuStartup {
     fn spawn(com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Setup the game world
-        super::world::setup_world(com);
     }
     fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing

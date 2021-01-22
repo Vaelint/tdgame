@@ -132,7 +132,12 @@ impl LoadState {
         Self::transtion_on_load_complete(com, res);
     }
 
-    fn kill(com: &mut Commands, _res: Res<'_, LoadStateResources>) {}
+    fn kill(com: &mut Commands, ids: Res<'_, LoadStateData>) {
+        // Despawn state entities
+        com.despawn_recursive(ids.ent_sprite_icon);
+        com.despawn_recursive(ids.ent_sprite_spinner);
+        com.despawn_recursive(ids.ent_txt_main);
+    }
 }
 impl FromResources for LoadStateResources {
     fn from_resources(resources: &Resources) -> Self {
