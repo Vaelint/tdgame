@@ -1,14 +1,18 @@
 use crate::state::{AppStates, STAGE_MENU};
 /// Project startup menu state module
 use bevy::prelude::*;
+use derive_more::Constructor;
 
 /// Bevy State for project startup screen
+#[derive(Constructor, Debug)]
 pub struct StateMenuStartup;
 
 /// Bevy plugin for project startup state
+#[derive(Debug)]
 pub struct StateMenuStartupPlugin;
 
 /// Resources for project startup state
+#[derive(Debug)]
 pub struct StateMenuStartupResources;
 
 impl StateMenuStartup {

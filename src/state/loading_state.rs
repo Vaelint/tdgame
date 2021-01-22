@@ -1,5 +1,6 @@
 //! Loading screen implementation module
 
+use bevy::ecs::StateError;
 use bevy::prelude::*;
 
 use crate::ecs::Rotating;
@@ -26,7 +27,8 @@ impl LoadState {
         Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone());
         Self::spawn_text_loading(com, res.fnt_bold_fira.clone());
         Self::spawn_sprite_main(com, res.mat_clr_icon.clone());
-        super::world::setup_world(com);
+
+        super::world::setup_world(com)
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen
@@ -91,22 +93,24 @@ impl LoadState {
             ..Default::default()
         });
     }
-}
 
-// Update logic block
-impl LoadState {
-    fn update(_com: &mut Commands, _res: Res<'_, LoadStateResources>) {
-        // Do nothing
+    fn transtion_on_load_complete(
+        _com: &mut Commands,
+        mut state: ResMut<'_, State<super::AppStates>>,
+    ) {
+        // TODO don't hardcode target state
+        match state.set_next(super::AppStates::Menu) {
+            Ok(_) => {}
+            Err(state_err) => println!("{:?}", state_err),
+        }
     }
-}
 
-// destruction logic block
-impl LoadState {
-    fn kill(_com: &mut Commands, _res: Res<'_, LoadStateResources>) {
-        // Do nothing
+    fn update(com: &mut Commands, res: ResMut<'_, State<super::AppStates>>) {
+        Self::transtion_on_load_complete(com, res);
     }
-}
 
+    fn kill(com: &mut Commands, _res: Res<'_, LoadStateResources>) {}
+}
 impl FromResources for LoadStateResources {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
