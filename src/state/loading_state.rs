@@ -26,34 +26,7 @@ impl LoadState {
         Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone());
         Self::spawn_text_loading(com, res.fnt_bold_fira.clone());
         Self::spawn_sprite_main(com, res.mat_clr_icon.clone());
-        Self::setup_world(com);
-    }
-
-    /// Spawns loading screen's camera
-    fn setup_world(com: &mut Commands) {
-        // Spawn 2D camera
-        com.spawn(Camera2dBundle {
-            /*
-            camera: Default::default(),
-            orthographic_projection: Default::default(),
-            visible_entities: Default::default(),
-            transform: Default::default(),
-            global_transform: Default::default(),
-             */
-            ..Default::default()
-        });
-
-        // Spawn UI camera
-        com.spawn(CameraUiBundle {
-            /*
-            camera: Default::default(),
-            orthographic_projection: Default::default(),
-            visible_entities: Default::default(),
-            transform: Default::default(),
-            global_transform: Default::default(),
-             */
-            ..Default::default()
-        });
+        super::world::setup_world(com);
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen

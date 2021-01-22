@@ -10,6 +10,12 @@ pub use stages::*;
 /// Implementation of Bevy Scenes for project
 mod loading_state;
 
+/// Project main / startup menu state for project
+mod menu_startup_state;
+
+/// Helper library for world initialization and destruction
+mod world;
+
 /// Plugin group for whole module
 pub struct ProjectStatePlugs;
 
