@@ -1,6 +1,5 @@
 //! Loading screen implementation module
 
-use bevy::ecs::StateError;
 use bevy::prelude::*;
 
 use crate::ecs::Rotating;
@@ -40,6 +39,7 @@ impl LoadState {
         // Spawn entities and store the ent ID's
         com.insert_resource(data);
 
+        // Spawn camera
         super::world::setup_world(com);
     }
 
@@ -124,7 +124,7 @@ impl LoadState {
         // TODO don't hardcode target state
         match state.set_next(super::AppStates::Menu) {
             Ok(_) => {}
-            Err(state_err) => println!("{:?}", state_err),
+            Err(state_err) => println!("{}", state_err),
         }
     }
 
