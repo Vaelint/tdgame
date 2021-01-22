@@ -20,11 +20,11 @@ pub struct GameStatePlug;
 #[allow(unused)]
 mod stages {
     /// Name of loading stage
-    pub const STAGE_LOADING: &'static str = "ST_LOAD";
+    pub const STAGE_LOADING: &str = "ST_LOAD";
     /// Name of menu state
-    pub const STAGE_MENU: &'static str = "ST_MENU";
+    pub const STAGE_MENU: &str = "ST_MENU";
     /// Name of main gameplay state
-    pub const STATE_GAME: &'static str = "ST_GAME";
+    pub const STATE_GAME: &str = "ST_GAME";
 }
 
 /// Game state enum
