@@ -14,18 +14,18 @@ pub struct LoadStatePlugin;
 /// Resources needed by LoadState
 #[allow(unused)]
 struct LoadStateResources {
-    pub(crate) mat_icon: Handle<ColorMaterial>,
-    pub(crate) mat_spinner: Handle<ColorMaterial>,
-    pub(crate) fnt_fira_bold: Handle<Font>,
+    pub(crate) mat_clr_icon: Handle<ColorMaterial>,
+    pub(crate) mat_clr_spinner: Handle<ColorMaterial>,
+    pub(crate) fnt_bold_fira: Handle<Font>,
 }
 
 // Initialization logic block
 impl LoadState {
     /// Creates entities for the LoadState
     fn spawn(com: &mut Commands, res: Res<'_, LoadStateResources>) {
-        Self::spawn_sprite_progress_spinner(com, res.mat_spinner.clone());
-        Self::spawn_text_loading(com, res.fnt_fira_bold.clone());
-        Self::spawn_sprite_main(com, res.mat_icon.clone());
+        Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone());
+        Self::spawn_text_loading(com, res.fnt_bold_fira.clone());
+        Self::spawn_sprite_main(com, res.mat_clr_icon.clone());
         Self::setup_world(com);
     }
 
@@ -137,14 +137,14 @@ impl LoadState {
 impl FromResources for LoadStateResources {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
-        let mut res_colormat = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
-        let asset_server = resources.get_mut::<AssetServer>().unwrap();
+        let mut res_mat_clr = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
+        let asset_srv = resources.get_mut::<AssetServer>().unwrap();
 
         // Load assets
         Self {
-            mat_icon: res_colormat.add(asset_server.load("tex/icon.png").into()),
-            mat_spinner: res_colormat.add(asset_server.load("tex/spinner.png").into()),
-            fnt_fira_bold: asset_server.load("fnt/FiraSans-Bold.ttf"),
+            mat_clr_icon: res_mat_clr.add(asset_srv.load("tex/icon.png").into()),
+            mat_clr_spinner: res_mat_clr.add(asset_srv.load("tex/spinner.png").into()),
+            fnt_bold_fira: asset_srv.load("fnt/FiraSans-Bold.ttf"),
         }
     }
 }
