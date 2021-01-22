@@ -12,6 +12,13 @@ struct LoadState;
 /// Bevy plugin for LoadState
 pub struct LoadStatePlugin;
 
+/// Loading state entity id storage
+struct LoadStateData {
+    ent_sprite_icon: Entity,
+    ent_sprite_spinner: Entity,
+    ent_txt_main: Entity,
+}
+
 /// Resources needed by LoadState
 #[allow(unused)]
 struct LoadStateResources {
@@ -24,15 +31,20 @@ struct LoadStateResources {
 impl LoadState {
     /// Creates entities for the LoadState
     fn spawn(com: &mut Commands, res: Res<'_, LoadStateResources>) {
-        Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone());
-        Self::spawn_text_loading(com, res.fnt_bold_fira.clone());
-        Self::spawn_sprite_main(com, res.mat_clr_icon.clone());
+        let data = LoadStateData {
+            ent_sprite_icon: Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone()),
+            ent_sprite_spinner: Self::spawn_text_loading(com, res.fnt_bold_fira.clone()),
+            ent_txt_main: Self::spawn_sprite_main(com, res.mat_clr_icon.clone()),
+        };
 
-        super::world::setup_world(com)
+        // Spawn entities and store the ent ID's
+        com.insert_resource(data);
+
+        super::world::setup_world(com);
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen
-    fn spawn_sprite_main(commands: &mut Commands, icon: Handle<ColorMaterial>) {
+    fn spawn_sprite_main(commands: &mut Commands, icon: Handle<ColorMaterial>) -> Entity {
         // Create transform matrix
         let trans_mat =
             Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
@@ -43,10 +55,16 @@ impl LoadState {
             transform: Transform::from_matrix(trans_mat),
             ..Default::default()
         });
+
+        // Return ID of spawned entity
+        commands.current_entity().unwrap()
     }
 
     /// Spawns progress spinner ent
-    fn spawn_sprite_progress_spinner(commands: &mut Commands, spinner: Handle<ColorMaterial>) {
+    fn spawn_sprite_progress_spinner(
+        commands: &mut Commands,
+        spinner: Handle<ColorMaterial>,
+    ) -> Entity {
         // Create transform matrix
         let trans_mat = Mat4::from_scale_rotation_translation(
             (0.1, 0.1, 1.0).into(),
@@ -62,10 +80,12 @@ impl LoadState {
                 ..Default::default()
             })
             .with(Rotating(-4.0));
+        // Return ID of spawned entity
+        commands.current_entity().unwrap()
     }
 
     /// Spawns loading text entity
-    fn spawn_text_loading(commands: &mut Commands, font: Handle<Font>) {
+    fn spawn_text_loading(commands: &mut Commands, font: Handle<Font>) -> Entity {
         commands.spawn(TextBundle {
             style: Style {
                 // Setup Margin
@@ -92,6 +112,9 @@ impl LoadState {
             },
             ..Default::default()
         });
+
+        // Return ID of spawned entity
+        commands.current_entity().unwrap()
     }
 
     fn transtion_on_load_complete(
