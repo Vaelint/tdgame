@@ -11,6 +11,7 @@ use ecs::ProjectECSPlugins;
 use state::ProjectStatePlugs;
 
 mod ecs;
+mod stage;
 mod state;
 
 fn main() {
