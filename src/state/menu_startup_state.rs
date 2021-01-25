@@ -3,6 +3,8 @@ use crate::state::{AppStates, STAGE_MENU};
 use bevy::prelude::*;
 use derive_more::Constructor;
 
+use super::STAGE_LOADING;
+
 /// Bevy State for project startup screen
 #[derive(Constructor, Debug)]
 pub struct StateMenuStartup;
@@ -96,17 +98,17 @@ impl Plugin for StateMenuStartupPlugin {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
             .on_state_enter(
-                STAGE_MENU,
+                STAGE_LOADING,
                 AppStates::Menu,
                 StateMenuStartup::spawn_txt_menu_main_title.system(),
             )
             .on_state_enter(
-                STAGE_MENU,
+                STAGE_LOADING,
                 AppStates::Menu,
                 StateMenuStartup::spawn_sprite_main.system(),
             )
             .on_state_update(
-                STAGE_MENU,
+                STAGE_LOADING,
                 AppStates::Menu,
                 StateMenuStartup::update.system(),
             )
