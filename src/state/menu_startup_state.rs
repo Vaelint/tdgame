@@ -1,4 +1,4 @@
-use crate::state::{world, AppStates, STAGE_MENU};
+use crate::state::{AppStates, STAGE_MENU};
 /// Project startup menu state module
 use bevy::prelude::*;
 use derive_more::Constructor;
@@ -17,6 +17,7 @@ pub struct StateMenuStartupPlugin;
 #[derive(Debug, Default)]
 struct StateMenuStartupEnts {
     ent_txt_menu_main_title: Option<Entity>,
+    ent_sprite_icon: Option<Entity>,
     ent_cam_main: Option<Vec<Entity>>,
     ent_cam_ui: Option<Vec<Entity>>,
 }
@@ -25,6 +26,7 @@ struct StateMenuStartupEnts {
 #[derive(Debug)]
 pub struct StateMenuStartupResources {
     fnt_bold_fira: Handle<Font>,
+    mat_clr_icon: Handle<ColorMaterial>,
 }
 
 impl StateMenuStartup {
@@ -58,6 +60,29 @@ impl StateMenuStartup {
         });
     }
 
+    /// Spawns an ent w/ a sprite component in the center of the screen
+    fn spawn_sprite_main(
+        commands: &mut Commands,
+        res: Res<'_, StateMenuStartupResources>,
+        mut ents: ResMut<'_, StateMenuStartupEnts>,
+    ) {
+        // TODO Look into borrowing just needed data
+
+        // Create transform matrix
+        let trans_mat =
+            Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
+
+        // Spawn sprite using texture from LoadStateRes
+        commands.spawn(SpriteBundle {
+            material: res.mat_clr_icon.clone(),
+            transform: Transform::from_matrix(trans_mat),
+            ..Default::default()
+        });
+
+        // Register sprite entity
+        ents.ent_sprite_icon = Some(commands.current_entity().unwrap());
+    }
+
     fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing
         println!("Updating");
@@ -69,11 +94,16 @@ impl StateMenuStartup {
 impl Plugin for StateMenuStartupPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<StateMenuStartupResources>()
-        .init_resource::<StateMenuStartupEnts>()
+            .init_resource::<StateMenuStartupEnts>()
             .on_state_enter(
                 STAGE_MENU,
                 AppStates::Menu,
                 StateMenuStartup::spawn_txt_menu_main_title.system(),
+            )
+            .on_state_enter(
+                STAGE_MENU,
+                AppStates::Menu,
+                StateMenuStartup::spawn_sprite_main.system(),
             )
             .on_state_update(
                 STAGE_MENU,
@@ -88,9 +118,11 @@ impl FromResources for StateMenuStartupResources {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
         let asset_srv = resources.get_mut::<AssetServer>().unwrap();
+        let mut res_mat_clr = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
 
         Self {
             fnt_bold_fira: asset_srv.load("fnt/FiraSans-Bold.ttf"),
+            mat_clr_icon: res_mat_clr.add(asset_srv.load("tex/icon.png").into()),
         }
     }
 }
