@@ -12,15 +12,18 @@ struct LoadState;
 pub struct LoadStatePlugin;
 
 /// Loading state entity id storage
-struct LoadStateData {
-    ent_sprite_icon: Entity,
-    ent_sprite_spinner: Entity,
-    ent_txt_main: Entity,
+#[derive(Debug, Default)]
+struct LoadStateEnts {
+    ent_sprite_icon: Option<Entity>,
+    ent_sprite_spinner: Option<Entity>,
+    ent_txt_main: Option<Entity>,
+    ent_cam_main: Option<Vec<Entity>>,
+    ent_cam_ui: Option<Vec<Entity>>,
 }
 
 /// Resources needed by LoadState
 #[allow(unused)]
-struct LoadStateResources {
+struct LoadStateRes {
     pub(crate) mat_clr_icon: Handle<ColorMaterial>,
     pub(crate) mat_clr_spinner: Handle<ColorMaterial>,
     pub(crate) fnt_bold_fira: Handle<Font>,
@@ -28,43 +31,40 @@ struct LoadStateResources {
 
 // Initialization logic block
 impl LoadState {
-    /// Creates entities for the LoadState
-    fn spawn(com: &mut Commands, res: Res<'_, LoadStateResources>) {
-        let data = LoadStateData {
-            ent_sprite_icon: Self::spawn_sprite_progress_spinner(com, res.mat_clr_spinner.clone()),
-            ent_sprite_spinner: Self::spawn_text_loading(com, res.fnt_bold_fira.clone()),
-            ent_txt_main: Self::spawn_sprite_main(com, res.mat_clr_icon.clone()),
-        };
-
-        // Spawn entities and store the ent ID's
-        com.insert_resource(data);
-
-        // Spawn camera
-        super::world::setup_world(com);
+    /// Spawns entities for the LoadState
+    fn state_setup(commands: &mut Commands) {
+        // Do nothing
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen
-    fn spawn_sprite_main(commands: &mut Commands, icon: Handle<ColorMaterial>) -> Entity {
+    fn spawn_sprite_main(
+        commands: &mut Commands,
+        res: Res<'_, LoadStateRes>,
+        mut ents: ResMut<'_, LoadStateEnts>,
+    ) {
+        // TODO Look into borrowing just needed data
+
         // Create transform matrix
         let trans_mat =
             Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
 
-        // Spawn sprite using provided texture
+        // Spawn sprite using texture from LoadStateRes
         commands.spawn(SpriteBundle {
-            material: icon,
+            material: res.mat_clr_icon.clone(),
             transform: Transform::from_matrix(trans_mat),
             ..Default::default()
         });
 
-        // Return ID of spawned entity
-        commands.current_entity().unwrap()
+        // Register sprite entity
+        ents.ent_sprite_icon = Some(commands.current_entity().unwrap());
     }
 
     /// Spawns progress spinner ent
     fn spawn_sprite_progress_spinner(
         commands: &mut Commands,
         spinner: Handle<ColorMaterial>,
-    ) -> Entity {
+        mut ents: ResMut<'_, LoadStateEnts>,
+    ) {
         // Create transform matrix
         let trans_mat = Mat4::from_scale_rotation_translation(
             (0.1, 0.1, 1.0).into(),
@@ -80,12 +80,17 @@ impl LoadState {
                 ..Default::default()
             })
             .with(Rotating(-4.0));
-        // Return ID of spawned entity
-        commands.current_entity().unwrap()
+
+        // Store ID of generated entity
+        ents.ent_sprite_spinner = Some(commands.current_entity().unwrap());
     }
 
     /// Spawns loading text entity
-    fn spawn_text_loading(commands: &mut Commands, font: Handle<Font>) -> Entity {
+    fn spawn_text_loading(
+        commands: &mut Commands,
+        font: Handle<Font>,
+        mut ents: ResMut<'_, LoadStateEnts>,
+    ) {
         commands.spawn(TextBundle {
             style: Style {
                 // Setup Margin
@@ -113,33 +118,41 @@ impl LoadState {
             ..Default::default()
         });
 
-        // Return ID of spawned entity
-        commands.current_entity().unwrap()
+        // Store ID of currently spawn entity
+        ents.ent_txt_main = Some(commands.current_entity().unwrap());
     }
 
-    fn transtion_on_load_complete(
-        _com: &mut Commands,
-        mut state: ResMut<'_, State<super::AppStates>>,
-    ) {
+    fn transtion_on_load_complete(_com: &mut Commands, mut state: ResMut<'_, State<AppStates>>) {
         // TODO don't hardcode target state
-        match state.set_next(super::AppStates::Menu) {
+        match state.set_next(AppStates::Menu) {
             Ok(_) => {}
             Err(state_err) => println!("{}", state_err),
         }
     }
 
-    fn update(com: &mut Commands, res: ResMut<'_, State<super::AppStates>>) {
+    fn update(com: &mut Commands, res: ResMut<'_, State<AppStates>>) {
         Self::transtion_on_load_complete(com, res);
     }
 
-    fn kill(com: &mut Commands, ids: Res<'_, LoadStateData>) {
-        // Despawn state entities
-        com.despawn_recursive(ids.ent_sprite_icon);
-        com.despawn_recursive(ids.ent_sprite_spinner);
-        com.despawn_recursive(ids.ent_txt_main);
+    fn kill(commands: &mut Commands, ids: Res<'_, LoadStateEnts>) {
+        // Create closure which despawn an ent
+        let mut despawn_ent = |ent: Option<Entity>| match ent {
+            Some(ent) => {
+                commands.despawn_recursive(ent);
+            }
+            None => {}
+        };
+
+        //let mut despawn_ent_vec = |ent: Option<Vec<Entity>>| {};
+
+        // Despawn entities
+        despawn_ent(ids.ent_sprite_icon);
+        despawn_ent(ids.ent_sprite_spinner);
+        despawn_ent(ids.ent_txt_main);
     }
 }
-impl FromResources for LoadStateResources {
+
+impl FromResources for LoadStateRes {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
         let mut res_mat_clr = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
@@ -156,8 +169,14 @@ impl FromResources for LoadStateResources {
 
 impl Plugin for LoadStatePlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.init_resource::<LoadStateResources>()
-            .on_state_enter(STAGE_LOADING, AppStates::Load, LoadState::spawn.system())
+        app.init_resource::<LoadStateRes>()
+            .init_resource::<LoadStateEnts>()
+            .add_startup_system_to_stage(STAGE_LOADING, LoadState::spawn_sprite_main.system())
+            .on_state_enter(
+                STAGE_LOADING,
+                AppStates::Load,
+                LoadState::state_setup.system(),
+            )
             .on_state_update(STAGE_LOADING, AppStates::Load, LoadState::update.system())
             .on_state_exit(STAGE_LOADING, AppStates::Load, LoadState::kill.system());
     }
