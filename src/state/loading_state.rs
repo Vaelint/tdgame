@@ -31,9 +31,21 @@ struct LoadStateRes {
 
 // Initialization logic block
 impl LoadState {
-    /// Spawns entities for the LoadState
-    fn state_setup(commands: &mut Commands) {
-        // Do nothing
+    /// Spawns an ent w/ a Camera2dBundle component w/ default parameters
+    fn spawn_cam_2d(commands: &mut Commands, mut ents: ResMut<'_, LoadStateEnts>) {
+        // Spawn 2d camera w/ default configuration
+        commands.spawn(Camera2dBundle::default());
+
+        // Store Entity Handle
+        ents.ent_cam_main = Some(vec![commands.current_entity().unwrap()]);
+    }
+    /// Spawns an ent w/ a Camera2dBundle component w/ default parameters
+    fn spawn_cam_ui(commands: &mut Commands, mut ents: ResMut<'_, LoadStateEnts>) {
+        // Spawn UI camera w/ default configuration
+        commands.spawn(CameraUiBundle::default());
+
+        // Store Entity Handle
+        ents.ent_cam_main = Some(vec![commands.current_entity().unwrap()]);
     }
 
     /// Spawns an ent w/ a sprite component in the center of the screen
@@ -62,7 +74,7 @@ impl LoadState {
     /// Spawns progress spinner ent
     fn spawn_sprite_progress_spinner(
         commands: &mut Commands,
-        spinner: Handle<ColorMaterial>,
+        res: Res<'_, LoadStateRes>,
         mut ents: ResMut<'_, LoadStateEnts>,
     ) {
         // Create transform matrix
@@ -75,7 +87,7 @@ impl LoadState {
         // Spawn spinner
         commands
             .spawn(SpriteBundle {
-                material: spinner,
+                material: res.mat_clr_spinner.clone(),
                 transform: Transform::from_matrix(trans_mat),
                 ..Default::default()
             })
@@ -88,7 +100,7 @@ impl LoadState {
     /// Spawns loading text entity
     fn spawn_text_loading(
         commands: &mut Commands,
-        font: Handle<Font>,
+        res: Res<'_, LoadStateRes>,
         mut ents: ResMut<'_, LoadStateEnts>,
     ) {
         commands.spawn(TextBundle {
@@ -105,7 +117,7 @@ impl LoadState {
             },
             text: Text {
                 value: format!("TDGame version {}", env!("CARGO_PKG_VERSION")),
-                font,
+                font: res.fnt_bold_fira.clone(),
                 style: TextStyle {
                     font_size: 60.0,
                     color: Color::BLACK,
@@ -140,7 +152,9 @@ impl LoadState {
             Some(ent) => {
                 commands.despawn_recursive(ent);
             }
-            None => {}
+            None => {
+                warn!("Attempted to delete Entity which has not been initialized.");
+            }
         };
 
         //let mut despawn_ent_vec = |ent: Option<Vec<Entity>>| {};
@@ -171,11 +185,30 @@ impl Plugin for LoadStatePlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<LoadStateRes>()
             .init_resource::<LoadStateEnts>()
-            .add_startup_system_to_stage(STAGE_LOADING, LoadState::spawn_sprite_main.system())
             .on_state_enter(
                 STAGE_LOADING,
                 AppStates::Load,
-                LoadState::state_setup.system(),
+                LoadState::spawn_cam_2d.system(),
+            )
+            .on_state_enter(
+                STAGE_LOADING,
+                AppStates::Load,
+                LoadState::spawn_cam_ui.system(),
+            )
+            .on_state_enter(
+                STAGE_LOADING,
+                AppStates::Load,
+                LoadState::spawn_sprite_main.system(),
+            )
+            .on_state_enter(
+                STAGE_LOADING,
+                AppStates::Load,
+                LoadState::spawn_sprite_progress_spinner.system(),
+            )
+            .on_state_enter(
+                STAGE_LOADING,
+                AppStates::Load,
+                LoadState::spawn_text_loading.system(),
             )
             .on_state_update(STAGE_LOADING, AppStates::Load, LoadState::update.system())
             .on_state_exit(STAGE_LOADING, AppStates::Load, LoadState::kill.system());
