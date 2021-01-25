@@ -1,4 +1,4 @@
-use crate::state::{AppStates, STAGE_MENU};
+use crate::state::AppStates;
 /// Project startup menu state module
 use bevy::prelude::*;
 use derive_more::Constructor;
@@ -87,7 +87,6 @@ impl StateMenuStartup {
 
     fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing
-        println!("Updating");
     }
     fn kill(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing
@@ -112,7 +111,11 @@ impl Plugin for StateMenuStartupPlugin {
                 AppStates::Menu,
                 StateMenuStartup::update.system(),
             )
-            .on_state_exit(STAGE_LOADING, AppStates::Menu, StateMenuStartup::kill.system());
+            .on_state_exit(
+                STAGE_LOADING,
+                AppStates::Menu,
+                StateMenuStartup::kill.system(),
+            );
     }
 }
 
