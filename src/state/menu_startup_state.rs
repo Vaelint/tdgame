@@ -112,7 +112,7 @@ impl Plugin for StateMenuStartupPlugin {
                 AppStates::Menu,
                 StateMenuStartup::update.system(),
             )
-            .on_state_exit(STAGE_MENU, AppStates::Menu, StateMenuStartup::kill.system());
+            .on_state_exit(STAGE_LOADING, AppStates::Menu, StateMenuStartup::kill.system());
     }
 }
 
