@@ -41,7 +41,10 @@ pub enum AppStates {
 
 impl PluginGroup for ProjectStatePlugs {
     fn build(&mut self, group: &mut PluginGroupBuilder) {
-        group.add(GameStatePlug).add(loading_state::LoadStatePlugin);
+        group
+            .add(GameStatePlug)
+            .add(loading_state::LoadStatePlugin)
+            .add(menu_startup_state::StateMenuStartupPlugin);
     }
 }
 
