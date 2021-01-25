@@ -1,4 +1,4 @@
-use crate::state::{AppStates, STAGE_MENU};
+use crate::state::{world, AppStates, STAGE_MENU};
 /// Project startup menu state module
 use bevy::prelude::*;
 use derive_more::Constructor;
@@ -17,6 +17,8 @@ pub struct StateMenuStartupPlugin;
 #[derive(Debug)]
 struct StateMenuStartupData {
     ent_txt_menu_main_title: Entity,
+    ent_cam_main: Entity,
+    ent_cam_ui: Entity,
 }
 
 /// Resources for project startup state
@@ -26,19 +28,20 @@ pub struct StateMenuStartupResources {
 }
 
 impl StateMenuStartup {
-    fn spawn(com: &mut Commands, res: Res<'_, StateMenuStartupResources>) {
+    fn spawn(commands: &mut Commands, res: Res<'_, StateMenuStartupResources>) {
         // Spawn entities and store their ent IDs
-        let data = StateMenuStartupData {
+        let cam_ids = world::setup_state_world(commands);
+        let ent_ids = StateMenuStartupData {
             ent_txt_menu_main_title: Self::spawn_txt_menu_main_title(
-                com,
+                commands,
                 res.fnt_bold_fira.clone(),
             ),
+            ent_cam_main: cam_ids.0,
+            ent_cam_ui: cam_ids.1,
         };
 
-        // Insert ent IDs into world
-        com.insert_resource(data);
-
-        // TODO Spawn camera?
+        // Store the ent ID's
+        commands.insert_resource(ent_ids);
     }
 
     /// Spawns loading text entity
@@ -76,6 +79,7 @@ impl StateMenuStartup {
 
     fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing
+        println!("Updating");
     }
     fn kill(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
         // Do nothing
