@@ -24,9 +24,9 @@ struct LoadStateEnts {
 /// Resources needed by LoadState
 #[allow(unused)]
 struct LoadStateRes {
-    pub(crate) mat_clr_icon: Handle<ColorMaterial>,
-    pub(crate) mat_clr_spinner: Handle<ColorMaterial>,
-    pub(crate) fnt_bold_fira: Handle<Font>,
+    mat_clr_icon: Handle<ColorMaterial>,
+    mat_clr_spinner: Handle<ColorMaterial>,
+    fnt_bold_fira: Handle<Font>,
 }
 
 // Initialization logic block
@@ -157,9 +157,8 @@ impl LoadState {
             }
         };
 
-        //let mut despawn_ent_vec = |ent: Option<Vec<Entity>>| {};
-
         // Despawn entities
+        // TODO Do in seperate systems
         despawn_ent(ids.ent_sprite_icon);
         despawn_ent(ids.ent_sprite_spinner);
         despawn_ent(ids.ent_txt_main);
