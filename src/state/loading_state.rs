@@ -134,7 +134,7 @@ impl LoadState {
         ents.ent_txt_main = Some(commands.current_entity().unwrap());
     }
 
-    fn transtion_on_load_complete(_com: &mut Commands, mut state: ResMut<'_, State<AppStates>>) {
+    fn transition_on_load_complete(_com: &mut Commands, mut state: ResMut<'_, State<AppStates>>) {
         // TODO don't hardcode target state
         match state.set_next(AppStates::Menu) {
             Ok(_) => {}
@@ -143,7 +143,7 @@ impl LoadState {
     }
 
     fn update(com: &mut Commands, res: ResMut<'_, State<AppStates>>) {
-        Self::transtion_on_load_complete(com, res);
+        Self::transition_on_load_complete(com, res);
     }
 
     fn kill(commands: &mut Commands, ids: Res<'_, LoadStateEnts>) {
@@ -158,7 +158,7 @@ impl LoadState {
         };
 
         // Despawn entities
-        // TODO Do in seperate systems
+        // TODO Do in separate systems
         despawn_ent(ids.ent_sprite_icon);
         despawn_ent(ids.ent_sprite_spinner);
         despawn_ent(ids.ent_txt_main);
