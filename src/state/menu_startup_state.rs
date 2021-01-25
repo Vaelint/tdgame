@@ -14,11 +14,11 @@ pub struct StateMenuStartupPlugin;
 /// Holds the entity ids of entities spawned by this state
 ///
 /// NOTE: only add entities that need to be cleaned upon exiting the state
-#[derive(Debug)]
-struct StateMenuStartupData {
-    ent_txt_menu_main_title: Entity,
-    ent_cam_main: Entity,
-    ent_cam_ui: Entity,
+#[derive(Debug, Default)]
+struct StateMenuStartupEnts {
+    ent_txt_menu_main_title: Option<Entity>,
+    ent_cam_main: Option<Vec<Entity>>,
+    ent_cam_ui: Option<Vec<Entity>>,
 }
 
 /// Resources for project startup state
@@ -28,24 +28,8 @@ pub struct StateMenuStartupResources {
 }
 
 impl StateMenuStartup {
-    fn spawn(commands: &mut Commands, res: Res<'_, StateMenuStartupResources>) {
-        // Spawn entities and store their ent IDs
-        let cam_ids = world::setup_state_world(commands);
-        let ent_ids = StateMenuStartupData {
-            ent_txt_menu_main_title: Self::spawn_txt_menu_main_title(
-                commands,
-                res.fnt_bold_fira.clone(),
-            ),
-            ent_cam_main: cam_ids.0,
-            ent_cam_ui: cam_ids.1,
-        };
-
-        // Store the ent ID's
-        commands.insert_resource(ent_ids);
-    }
-
     /// Spawns loading text entity
-    fn spawn_txt_menu_main_title(commands: &mut Commands, font: Handle<Font>) -> Entity {
+    fn spawn_txt_menu_main_title(commands: &mut Commands, res: Res<'_, StateMenuStartupResources>) {
         commands.spawn(TextBundle {
             style: Style {
                 // Setup Margin
@@ -60,7 +44,7 @@ impl StateMenuStartup {
             },
             text: Text {
                 value: "Project Name".to_string(),
-                font,
+                font: res.fnt_bold_fira.clone(),
                 style: TextStyle {
                     font_size: 60.0,
                     color: Color::BLACK,
@@ -72,9 +56,6 @@ impl StateMenuStartup {
             },
             ..Default::default()
         });
-
-        // Return ID of spawned entity
-        commands.current_entity().unwrap()
     }
 
     fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
@@ -88,10 +69,11 @@ impl StateMenuStartup {
 impl Plugin for StateMenuStartupPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<StateMenuStartupResources>()
+        .init_resource::<StateMenuStartupEnts>()
             .on_state_enter(
                 STAGE_MENU,
                 AppStates::Menu,
-                StateMenuStartup::spawn.system(),
+                StateMenuStartup::spawn_txt_menu_main_title.system(),
             )
             .on_state_update(
                 STAGE_MENU,
