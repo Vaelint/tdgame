@@ -9,6 +9,6 @@ edition = "2018"
 derive_more = "0.99"
 
 [dependencies.bevy]
-version = "0.4"
+git = "https://github.com/bevyengine/bevy.git"
 
 #features = ["dynamic"]
