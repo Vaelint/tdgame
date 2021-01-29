@@ -1,4 +1,4 @@
-use bevy::prelude::*;
+use bevy::{ecs::EntityBuilder, prelude::*};
 
 /// Holds the entity ids of entities spawned by this state
 ///
@@ -9,6 +9,7 @@ pub struct StateMenuStartupEnts {
     pub ent_sprite_icon: Option<Entity>,
     pub ent_cam_main: Option<Vec<Entity>>,
     pub ent_cam_ui: Option<Vec<Entity>>,
+    pub ent_button_game_new: Option<Entity>,
 }
 
 /// Resources for project startup state
