@@ -267,21 +267,21 @@ pub fn button_system(
         (&Interaction, &mut Handle<ColorMaterial>, &Children),
         (Mutated<Interaction>, With<Button>),
     >,
-    mut text_query: Query<'_, &mut Text>,
+    mut _text_query: Query<'_, &Text>,
 ) {
-    for (interaction, mut material, children) in interaction_query.iter_mut() {
-        let mut text = text_query.get_mut(children[0]).unwrap();
+    // TODO make align with project conventions
+    for (interaction, mut material, _children) in interaction_query.iter_mut() {
+        //let mut text = text_query.get_mut(children[0]).unwrap();
+
+        // Change button material based on hover state
         match *interaction {
             Interaction::Clicked => {
-                text.sections[0].value = "Press".to_string();
                 *material = button_materials.pressed.clone();
             }
             Interaction::Hovered => {
-                text.sections[0].value = "Hover".to_string();
                 *material = button_materials.hovered.clone();
             }
             Interaction::None => {
-                text.sections[0].value = "Button".to_string();
                 *material = button_materials.normal.clone();
             }
         }
