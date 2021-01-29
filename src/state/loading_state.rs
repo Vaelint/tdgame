@@ -103,32 +103,31 @@ impl LoadState {
         res: Res<'_, LoadStateRes>,
         mut ents: ResMut<'_, LoadStateEnts>,
     ) {
-        commands.spawn(TextBundle {
-            style: Style {
-                // Setup Margin
-                size: Size::new(Val::Percent(40.0), Val::Percent(20.0)),
-                position_type: PositionType::Absolute,
-                position: Rect {
-                    left: Val::Percent(20.0),
-                    top: Val::Percent(10.0),
+        commands.spawn(
+            TextBundle {
+                style: Style {
+                    // Setup Margin
+                    size: Size::new(Val::Percent(40.0), Val::Percent(20.0)),
+                    position_type: PositionType::Absolute,
+                    position: Rect {
+                        left: Val::Percent(20.0),
+                        top: Val::Percent(10.0),
+                        ..Default::default()
+                    },
                     ..Default::default()
                 },
-                ..Default::default()
-            },
-            text: Text {
-                value: format!("TDGame version {}", env!("CARGO_PKG_VERSION")),
-                font: res.fnt_bold_fira.clone(),
-                style: TextStyle {
-                    font_size: 60.0,
-                    color: Color::BLACK,
-                    alignment: TextAlignment {
-                        vertical: VerticalAlign::Center,
-                        horizontal: HorizontalAlign::Center,
+                text: Text::with_section(
+                    "Button",
+                    TextStyle {
+                        font: res.fnt_bold_fira.clone(),
+                        font_size: 40.0,
+                        color: Color::rgb(0.9, 0.9, 0.9),
                     },
-                },
-            },
-            ..Default::default()
-        });
+                    Default::default(),
+                ),
+                ..Default::default()
+            }
+        );
 
         // Store ID of currently spawn entity
         ents.ent_txt_main = Some(commands.current_entity().unwrap());
