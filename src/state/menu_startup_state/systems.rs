@@ -265,11 +265,15 @@ pub fn button_system(
     mut interaction_query: Query<
         '_,
         (&Interaction, &mut Handle<ColorMaterial>, &Children),
-        (Mutated<Interaction>, With<Button>),
+        (
+            Mutated<Interaction>,
+            (With<Button>, With<MenuStartupButtons>),
+        ),
     >,
     mut _text_query: Query<'_, &Text>,
 ) {
     // TODO make align with project conventions
+    // TODO Add button match to branch on button type
     for (interaction, mut material, _children) in interaction_query.iter_mut() {
         //let mut text = text_query.get_mut(children[0]).unwrap();
 
