@@ -55,7 +55,7 @@ pub fn spawn_sprite_main(
 }
 
 /// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but(
+pub fn spawn_but_game_new(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
@@ -79,7 +79,7 @@ pub fn spawn_but(
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 text: Text::with_section(
-                    "Button",
+                    "New Game",
                     TextStyle {
                         font: res.fnt_bold_fira.clone(),
                         font_size: 40.0,

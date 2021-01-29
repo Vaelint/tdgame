@@ -14,7 +14,7 @@ impl Plugin for StateMenuStartupPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
-            .on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_but.system())
+            .on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_but_game_new.system())
             .on_state_enter(
                 STAGE_LOADING,
                 AppStates::Menu,
