@@ -37,6 +37,7 @@ impl Plugin for StateMenuStartupPlugin {
                 AppStates::Menu,
                 StateMenuStartup::update.system(),
             )
+            .on_state_update(STAGE_LOADING, AppStates::Menu, button_system.system())
             // Add exit systems
             .on_state_exit(
                 STAGE_LOADING,

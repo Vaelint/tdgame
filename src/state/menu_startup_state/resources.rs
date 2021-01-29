@@ -1,4 +1,4 @@
-use bevy::{ecs::EntityBuilder, prelude::*};
+use bevy::prelude::*;
 
 /// Holds the entity ids of entities spawned by this state
 ///

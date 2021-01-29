@@ -258,3 +258,32 @@ pub fn spawn_but_options(
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
 }
+
+/// Updates button state and dispatches events
+pub fn button_system(
+    button_materials: Res<'_, ButtonMaterials>,
+    mut interaction_query: Query<
+        '_,
+        (&Interaction, &mut Handle<ColorMaterial>, &Children),
+        (Mutated<Interaction>, With<Button>),
+    >,
+    mut text_query: Query<'_, &mut Text>,
+) {
+    for (interaction, mut material, children) in interaction_query.iter_mut() {
+        let mut text = text_query.get_mut(children[0]).unwrap();
+        match *interaction {
+            Interaction::Clicked => {
+                text.sections[0].value = "Press".to_string();
+                *material = button_materials.pressed.clone();
+            }
+            Interaction::Hovered => {
+                text.sections[0].value = "Hover".to_string();
+                *material = button_materials.hovered.clone();
+            }
+            Interaction::None => {
+                text.sections[0].value = "Button".to_string();
+                *material = button_materials.normal.clone();
+            }
+        }
+    }
+}
