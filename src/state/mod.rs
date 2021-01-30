@@ -69,7 +69,7 @@ impl PluginGroup for ProjectStatePlugs {
 impl Plugin for GameStatePlug {
     fn build(&self, app: &mut AppBuilder) {
         // Start application in load state.
-        app.add_resource(State::new(AppStates::Load))
+        app.insert_resource(State::new(AppStates::Load))
             .init_resource::<ButtonMaterials>()
             .add_stage_after(
                 stage::UPDATE,

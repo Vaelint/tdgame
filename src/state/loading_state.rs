@@ -34,7 +34,7 @@ impl LoadState {
     /// Spawns an ent w/ a Camera2dBundle component w/ default parameters
     fn spawn_cam_2d(commands: &mut Commands, mut ents: ResMut<'_, LoadStateEnts>) {
         // Spawn 2d camera w/ default configuration
-        commands.spawn(Camera2dBundle::default());
+        commands.spawn(OrthographicCameraBundle::new_2d());
 
         // Store Entity Handle
         ents.ent_cam_main = Some(vec![commands.current_entity().unwrap()]);
@@ -42,7 +42,7 @@ impl LoadState {
     /// Spawns an ent w/ a Camera2dBundle component w/ default parameters
     fn spawn_cam_ui(commands: &mut Commands, mut ents: ResMut<'_, LoadStateEnts>) {
         // Spawn UI camera w/ default configuration
-        commands.spawn(CameraUiBundle::default());
+        commands.spawn(UiCameraBundle::default());
 
         // Store Entity Handle
         ents.ent_cam_main = Some(vec![commands.current_entity().unwrap()]);
