@@ -69,20 +69,11 @@ pub fn spawn_but_game_new(
             ..Default::default()
         })
         .with(MenuStartupButtons::NewGame)
-        .with_children(|parent| {
-            parent.spawn(TextBundle {
-                text: Text::with_section(
-                    "New Game",
-                    TextStyle {
-                        font: res.fnt_bold_fira.clone(),
-                        font_size: 40.0,
-                        color: Color::rgb(0.9, 0.9, 0.9),
-                    },
-                    Default::default(),
-                ),
-                ..Default::default()
-            });
-        });
+        // TODO refactor to combine these two function calls
+        .with_children(create_child_txt_builder(
+            "New Game".to_string(),
+            res.fnt_bold_fira.clone(),
+        ));
 
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
@@ -103,20 +94,10 @@ pub fn spawn_but_game_load(
             ..Default::default()
         })
         .with(MenuStartupButtons::LoadGame)
-        .with_children(|parent| {
-            parent.spawn(TextBundle {
-                text: Text::with_section(
-                    "Load Game",
-                    TextStyle {
-                        font: res.fnt_bold_fira.clone(),
-                        font_size: 40.0,
-                        color: Color::rgb(0.9, 0.9, 0.9),
-                    },
-                    Default::default(),
-                ),
-                ..Default::default()
-            });
-        });
+        .with_children(create_child_txt_builder(
+            "Load Game".to_string(),
+            res.fnt_bold_fira.clone(),
+        ));
 
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
@@ -138,9 +119,10 @@ pub fn spawn_but_game_continue(
             ..Default::default()
         })
         .with(MenuStartupButtons::Continue)
-        .with_children(|parent| {
-            
-        });
+        .with_children(create_child_txt_builder(
+            "Continue".to_string(),
+            res.fnt_bold_fira.clone(),
+        ));
 
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
@@ -161,20 +143,10 @@ pub fn spawn_but_game_exit(
             ..Default::default()
         })
         .with(MenuStartupButtons::Exit)
-        .with_children(|parent| {
-            parent.spawn(TextBundle {
-                text: Text::with_section(
-                    "Exit Game",
-                    TextStyle {
-                        font: res.fnt_bold_fira.clone(),
-                        font_size: 40.0,
-                        color: Color::rgb(0.9, 0.9, 0.9),
-                    },
-                    Default::default(),
-                ),
-                ..Default::default()
-            });
-        });
+        .with_children(create_child_txt_builder(
+            "Exit".to_string(),
+            res.fnt_bold_fira.clone(),
+        ));
 
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
@@ -195,20 +167,10 @@ pub fn spawn_but_options(
             ..Default::default()
         })
         .with(MenuStartupButtons::Options)
-        .with_children(|parent| {
-            parent.spawn(TextBundle {
-                text: Text::with_section(
-                    "Options",
-                    TextStyle {
-                        font: res.fnt_bold_fira.clone(),
-                        font_size: 40.0,
-                        color: Color::rgb(0.9, 0.9, 0.9),
-                    },
-                    Default::default(),
-                ),
-                ..Default::default()
-            });
-        });
+        .with_children(create_child_txt_builder(
+            "Options".to_string(),
+            res.fnt_bold_fira.clone(),
+        ));
 
     // Store handle of sprite entity
     ents.ent_button_game_new = Some(commands.current_entity().unwrap());
