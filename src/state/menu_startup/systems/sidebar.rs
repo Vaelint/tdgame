@@ -64,6 +64,15 @@ pub fn spawn_sidebar(
     ents.ent_sidebar = Some(commands.current_entity().unwrap());
 }
 
+/// Data needed for spawning sidebar buttons
+const BUTTON_DATA: [(&str, MenuStartupButtons); 5] = [
+    ("Continue Game", MenuStartupButtons::Continue),
+    ("New Game", MenuStartupButtons::NewGame),
+    ("Load Game", MenuStartupButtons::LoadGame),
+    ("Options Menu", MenuStartupButtons::Options),
+    ("Exit Game", MenuStartupButtons::Exit),
+];
+
 /// Spawns the start menu buttons as a child of parent
 fn spawn_buttons(
     commands: &mut Commands,
@@ -71,17 +80,9 @@ fn spawn_buttons(
     sty: Style,
     fnt: Handle<Font>,
 ) {
-    // Create array of buttons to spawn
-    let button_data = [
-        ("Continue Game", MenuStartupButtons::Continue),
-        ("New Game", MenuStartupButtons::NewGame),
-        ("Load Game", MenuStartupButtons::LoadGame),
-        ("Options Menu", MenuStartupButtons::Options),
-        ("Exit Game", MenuStartupButtons::Exit),
-    ];
-
     // Spawn buttons
-    for button in button_data.iter() {
+    // Uses data from static memory
+    for button in BUTTON_DATA.iter() {
         spawn_button_as_child(
             commands,
             mat.clone(),
