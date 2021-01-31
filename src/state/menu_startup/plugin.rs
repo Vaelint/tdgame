@@ -34,7 +34,7 @@ impl StateMenuStartupPlugin {
                 AppStates::Menu,
                 StateMenuStartup::update.system(),
             )
-            .on_state_update(STAGE_LOADING, AppStates::Menu, button_system.system())
+            .on_state_update(STAGE_LOADING, AppStates::Menu, startup_butt_sys.system())
     }
 
     /// Adds startup state's exit systems to an AppBuilder

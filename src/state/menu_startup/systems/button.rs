@@ -4,7 +4,7 @@ use bevy::app::AppExit;
 use bevy::prelude::*;
 
 /// Updates button state and dispatches events
-pub fn button_system(
+pub fn startup_butt_sys(
     button_materials: Res<'_, ButtonMaterials>,
     mut interaction_query: Query<
         '_,
