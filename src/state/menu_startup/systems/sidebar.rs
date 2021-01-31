@@ -31,12 +31,6 @@ pub fn spawn_sidebar(
                     size: Size::new(Val::Percent(40.0), Val::Percent(20.0)),
                     // center button
                     margin: Rect::all(Val::Auto),
-                    // horizontally center child text
-                    justify_content: JustifyContent::Center,
-                    // vertically center child text
-                    align_items: AlignItems::Center,
-                    align_self: AlignSelf::FlexStart,
-                    flex_direction: FlexDirection::Column,
                     ..Default::default()
                 },
                 text: Text::with_section(
@@ -64,7 +58,7 @@ pub fn spawn_sidebar(
     ents.ent_sidebar = Some(commands.current_entity().unwrap());
 }
 
-/// Data needed for spawning sidebar buttons
+/// Data needed for spawning sidebar buttons recursively
 const BUTTON_DATA: [(&str, MenuStartupButtons); 5] = [
     ("Continue Game", MenuStartupButtons::Continue),
     ("New Game", MenuStartupButtons::NewGame),
