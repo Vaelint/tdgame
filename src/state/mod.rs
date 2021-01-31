@@ -11,7 +11,7 @@ pub use stages::*;
 mod loading_state;
 
 /// Project main / startup menu state for project
-mod menu_startup_state;
+mod menu_startup;
 
 /// Plugin group for whole module
 pub struct ProjectStatePlugs;
@@ -62,7 +62,7 @@ impl PluginGroup for ProjectStatePlugs {
         group
             .add(GameStatePlug)
             .add(loading_state::LoadStatePlugin)
-            .add(menu_startup_state::StateMenuStartupPlugin);
+            .add(menu_startup::StateMenuStartupPlugin);
     }
 }
 
