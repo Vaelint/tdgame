@@ -82,7 +82,7 @@ fn spawn_buttons(
 
 
     // Spawn buttons
-    // TODO Parallelise?
+    // TODO Parallelize?
     for button in button_data {
         spawn_button_as_child(
             commands,
