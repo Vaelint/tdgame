@@ -1,6 +1,4 @@
-
 use bevy::prelude::*;
-
 
 /// UI Style for main menu buttons
 #[derive(Debug, Reflect)]

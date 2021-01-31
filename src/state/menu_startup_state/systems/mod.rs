@@ -2,13 +2,10 @@
 
 use super::resources::*;
 
-mod sidebar;
-mod button;
 mod background;
+mod button;
+mod sidebar;
 
-pub use sidebar::*;
-pub use button::*;
 pub use background::*;
-
-
-
+pub use button::*;
+pub use sidebar::*;

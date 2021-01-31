@@ -1,9 +1,7 @@
-
-use bevy::prelude::*;
-use bevy::app::AppExit;
-use crate::state::ButtonMaterials;
 use super::MenuStartupButtons;
-
+use crate::state::ButtonMaterials;
+use bevy::app::AppExit;
+use bevy::prelude::*;
 
 /// Updates button state and dispatches events
 pub fn button_system(

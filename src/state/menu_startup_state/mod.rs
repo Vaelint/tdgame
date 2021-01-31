@@ -19,6 +19,6 @@ impl StateMenuStartup {
         // Do nothing
     }
     fn kill(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
-        // Do nothing
+        // TODO clean up spawn ents
     }
 }

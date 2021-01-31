@@ -1,4 +1,3 @@
-
 use bevy::prelude::*;
 
 /// Resources for project startup state

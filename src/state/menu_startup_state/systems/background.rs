@@ -1,8 +1,7 @@
 //! Loading screen background systems module
 
+use super::{StateMenuStartupEnts, StateMenuStartupResources};
 use bevy::prelude::*;
-use super::{StateMenuStartupResources, StateMenuStartupEnts};
-
 
 /// Spawns an ent w/ a sprite component in the center of the screen
 pub fn spawn_sprite_main(

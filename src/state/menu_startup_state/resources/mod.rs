@@ -1,14 +1,12 @@
 use bevy::prelude::*;
 
+mod assets;
 mod ents;
 mod styles;
-mod assets;
 
+pub use assets::*;
 pub use ents::*;
 pub use styles::*;
-pub use assets::*;
-
-
 
 /// List of buttons in main menu
 // TODO Bevy reflection

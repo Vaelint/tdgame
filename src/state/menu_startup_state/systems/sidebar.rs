@@ -80,7 +80,6 @@ fn spawn_buttons(
         ("Exit Game", MenuStartupButtons::Exit),
     ];
 
-
     // Spawn buttons
     for button in button_data.iter() {
         spawn_button_as_child(
