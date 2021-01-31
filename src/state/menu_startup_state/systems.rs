@@ -4,33 +4,6 @@ use super::resources::*;
 /// Project startup menu ecs systems module
 use bevy::prelude::*;
 
-/// Spawns loading text entity
-pub fn spawn_txt_menu_main_title(commands: &mut Commands, res: Res<'_, StateMenuStartupResources>) {
-    commands.spawn(TextBundle {
-        style: Style {
-            // Setup Margin
-            size: Size::new(Val::Percent(40.0), Val::Percent(20.0)),
-            position_type: PositionType::Absolute,
-            position: Rect {
-                left: Val::Percent(20.0),
-                top: Val::Percent(10.0),
-                ..Default::default()
-            },
-            ..Default::default()
-        },
-        text: Text::with_section(
-            "Project Name",
-            TextStyle {
-                font: res.fnt_bold_fira.clone(),
-                font_size: 40.0,
-                color: Color::rgb(0.9, 0.9, 0.9),
-            },
-            Default::default(),
-        ),
-        ..Default::default()
-    });
-}
-
 /// Spawns an ent w/ a sprite component in the center of the screen
 pub fn spawn_sprite_main(
     commands: &mut Commands,
@@ -55,7 +28,7 @@ pub fn spawn_sprite_main(
 }
 
 /// Spawns buttons for main menu
-pub fn spawn_but_startup(
+pub fn spawn_sidebar(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
@@ -66,7 +39,39 @@ pub fn spawn_but_startup(
     commands
         .spawn(NodeBundle {
             style: sty_ui_button.style_node_root.clone(),
+            // FIXME TODO
+            visible: Visible {
+                is_visible: false,
+                is_transparent: false,
+            },
             ..Default::default()
+        })
+        .with_children(|parent| {
+            parent.spawn(TextBundle {
+                style: Style {
+                    // Setup Margin
+                    size: Size::new(Val::Percent(40.0), Val::Percent(20.0)),
+                    // center button
+                    margin: Rect::all(Val::Auto),
+                    // horizontally center child text
+                    justify_content: JustifyContent::Center,
+                    // vertically center child text
+                    align_items: AlignItems::Center,
+                    align_self: AlignSelf::FlexStart,
+                    flex_direction: FlexDirection::Column,
+                    ..Default::default()
+                },
+                text: Text::with_section(
+                    "Project Name",
+                    TextStyle {
+                        font: res.fnt_bold_fira.clone(),
+                        font_size: 40.0,
+                        color: Color::rgb(0.9, 0.9, 0.9),
+                    },
+                    Default::default(),
+                ),
+                ..Default::default()
+            });
         })
         // Spawn continue game button
         .with_children(|parent| {

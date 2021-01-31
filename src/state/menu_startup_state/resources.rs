@@ -54,12 +54,22 @@ impl FromResources for StateUiResources {
     fn from_resources(_resources: &Resources) -> Self {
         Self {
             style_node_root: Style {
+                display: Display::Flex,
+                // Make children use flex layout
                 align_items: AlignItems::FlexStart,
+                // Set left margin
+                margin: Rect {
+                    right: Val::Percent(67.0),
+                    ..Default::default()
+                },
+                // Make children lay out in reverse column order
+                flex_direction: FlexDirection::ColumnReverse,
+                
                 ..Default::default()
             },
             style_std: Style {
                 // Set button size
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
+                size: Size::new(Val::Px(250.0), Val::Px(65.0)),
                 // center button
                 margin: Rect::all(Val::Auto),
                 // horizontally center child text
