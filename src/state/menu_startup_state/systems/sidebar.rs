@@ -71,8 +71,8 @@ fn spawn_buttons(
     sty: Style,
     fnt: Handle<Font>,
 ) {
-    // Create vector of buttons to spawn
-    let button_data = vec![
+    // Create array of buttons to spawn
+    let button_data = [
         ("Continue Game", MenuStartupButtons::Continue),
         ("New Game", MenuStartupButtons::NewGame),
         ("Load Game", MenuStartupButtons::LoadGame),
@@ -82,15 +82,14 @@ fn spawn_buttons(
 
 
     // Spawn buttons
-    // TODO Parallelize?
-    for button in button_data {
+    for button in button_data.iter() {
         spawn_button_as_child(
             commands,
             mat.clone(),
             sty.clone(),
             fnt.clone(),
             String::from(button.0),
-            button.1,
+            button.1.clone(),
         );
     }
 }

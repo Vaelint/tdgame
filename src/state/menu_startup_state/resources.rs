@@ -12,7 +12,7 @@ pub struct StateMenuStartupEnts {
 }
 
 /// Resources for project startup state
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct StateMenuStartupResources {
     pub fnt_bold_fira: Handle<Font>,
     pub mat_clr_icon: Handle<ColorMaterial>,
@@ -33,7 +33,7 @@ impl FromResources for StateMenuStartupResources {
 
 /// List of buttons in main menu
 // TODO Bevy reflection
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum MenuStartupButtons {
     Continue,
     NewGame,
