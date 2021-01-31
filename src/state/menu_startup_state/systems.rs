@@ -2,7 +2,7 @@ use crate::state::ButtonMaterials;
 
 use super::resources::*;
 /// Project startup menu ecs systems module
-use bevy::prelude::*;
+use bevy::{app::AppExit, prelude::*};
 
 /// Spawns an ent w/ a sprite component in the center of the screen
 pub fn spawn_sprite_main(
@@ -153,23 +153,37 @@ pub fn button_system(
     button_materials: Res<'_, ButtonMaterials>,
     mut interaction_query: Query<
         '_,
-        (&Interaction, &mut Handle<ColorMaterial>, &Children),
+        (
+            &Interaction,
+            &mut Handle<ColorMaterial>,
+            &Children,
+            &MenuStartupButtons,
+        ),
         (
             Mutated<Interaction>,
             (With<Button>, With<MenuStartupButtons>),
         ),
     >,
     mut _text_query: Query<'_, &Text>,
+    mut app_exit_events: ResMut<'_, Events<AppExit>>,
 ) {
     // TODO make align with project conventions
     // TODO Add button match to branch on button type
-    for (interaction, mut material, _children) in interaction_query.iter_mut() {
+    for (interaction, mut material, _children, button) in interaction_query.iter_mut() {
         //let mut text = text_query.get_mut(children[0]).unwrap();
 
         // Change button material based on hover state
         match *interaction {
             Interaction::Clicked => {
                 *material = button_materials.pressed.clone();
+                match button {
+                    MenuStartupButtons::Continue => {}
+                    MenuStartupButtons::NewGame => {}
+                    MenuStartupButtons::LoadGame => {}
+                    MenuStartupButtons::Options => {}
+                    // TODO confirm exit before exiting
+                    MenuStartupButtons::Exit => app_exit_events.send(AppExit {}),
+                }
             }
             Interaction::Hovered => {
                 *material = button_materials.hovered.clone();
