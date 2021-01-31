@@ -1,38 +1,14 @@
-use crate::state::ButtonMaterials;
+//! Project startup menu systems module
 
 use super::resources::*;
-/// Project startup menu ecs systems module
-use bevy::{app::AppExit, prelude::*};
 
 mod sidebar;
 mod button;
+mod background;
 
 pub use sidebar::*;
 pub use button::*;
+pub use background::*;
 
-/// Spawns an ent w/ a sprite component in the center of the screen
-pub fn spawn_sprite_main(
-    commands: &mut Commands,
-    res: Res<'_, StateMenuStartupResources>,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
-) {
-    // TODO Look into borrowing just needed data
 
-    // Create transform matrix
-    let trans_mat = Mat4::from_scale_rotation_translation(
-        (2.5, 2.5, 1.0).into(),
-        Quat::identity(),
-        Vec3::zero(),
-    );
-
-    // Spawn sprite using texture from LoadStateRes
-    commands.spawn(SpriteBundle {
-        material: res.mat_clr_icon.clone(),
-        transform: Transform::from_matrix(trans_mat),
-        ..Default::default()
-    });
-
-    // Register sprite entity
-    ents.ent_background = Some(commands.current_entity().unwrap());
-}
 
