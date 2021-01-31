@@ -34,7 +34,7 @@ impl FromResources for StateMenuStartupResources {
 
 /// List of buttons in main menu
 // TODO Bevy reflection
-#[derive(Debug)]
+#[derive(Debug, Reflect)]
 pub enum MenuStartupButtons {
     Continue,
     NewGame,

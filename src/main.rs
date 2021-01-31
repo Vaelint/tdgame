@@ -21,7 +21,5 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugins(ProjectECSPlugins)
         .add_plugins(ProjectStatePlugs)
-        // TODO Temporary plug for early dev
-        .add_system(exit_on_esc_system.system())
         .run();
 }

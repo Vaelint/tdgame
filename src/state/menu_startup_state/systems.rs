@@ -42,7 +42,6 @@ pub fn spawn_sidebar(
     commands
         .spawn(NodeBundle {
             style: sty_ui_button.style_node_root.clone(),
-            // FIXME TODO
             visible: Visible {
                 is_visible: false,
                 is_transparent: false,

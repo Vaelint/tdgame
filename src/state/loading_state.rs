@@ -155,7 +155,6 @@ impl LoadState {
         };
 
         // Despawn entities
-        // TODO Do in separate systems
         despawn_ent(ids.ent_sprite_icon);
         despawn_ent(ids.ent_sprite_spinner);
         despawn_ent(ids.ent_txt_main);

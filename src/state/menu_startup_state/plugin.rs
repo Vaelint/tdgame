@@ -15,7 +15,6 @@ impl Plugin for StateMenuStartupPlugin {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
             .init_resource::<StateUiResources>()
-            // FIXME control spawn order of buttons?
             // Add startup systems
             .on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_sidebar.system())
             // Spawn example game sprite
