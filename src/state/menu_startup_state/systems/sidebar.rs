@@ -12,8 +12,9 @@ pub fn spawn_sidebar(
     sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
-    // Spawn root node
+    // Spawn sidebar ents
     commands
+        // Root node
         .spawn(NodeBundle {
             style: sty_ui_button.style_node_root.clone(),
             visible: Visible {
@@ -22,6 +23,7 @@ pub fn spawn_sidebar(
             },
             ..Default::default()
         })
+        // Game Text
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 style: Style {
@@ -48,78 +50,68 @@ pub fn spawn_sidebar(
                 ),
                 ..Default::default()
             });
-        })
-        // Spawn continue game button
-        .with_children(|parent| {
-            parent
-                .spawn(ButtonBundle {
-                    style: sty_ui_button.style_std.clone(),
-                    material: mat_button.normal.clone(),
-                    ..Default::default()
-                })
-                .with(MenuStartupButtons::Continue)
-                .with_children(create_child_txt_builder(
-                    "Continue Game".to_string(),
-                    res.fnt_bold_fira.clone(),
-                ));
-        })
-        // Spawn new game button
-        .with_children(|parent| {
-            parent
-                .spawn(ButtonBundle {
-                    style: sty_ui_button.style_std.clone(),
-                    material: mat_button.normal.clone(),
-                    ..Default::default()
-                })
-                .with(MenuStartupButtons::NewGame)
-                .with_children(create_child_txt_builder(
-                    "New Game".to_string(),
-                    res.fnt_bold_fira.clone(),
-                ));
-        })
-        // Spawn Load Game button
-        .with_children(|parent| {
-            parent
-                .spawn(ButtonBundle {
-                    style: sty_ui_button.style_std.clone(),
-                    material: mat_button.normal.clone(),
-                    ..Default::default()
-                })
-                .with(MenuStartupButtons::LoadGame)
-                .with_children(create_child_txt_builder(
-                    "Load Game".to_string(),
-                    res.fnt_bold_fira.clone(),
-                ));
-        })
-        // Spawn Options button
-        .with_children(|parent| {
-            parent
-                .spawn(ButtonBundle {
-                    style: sty_ui_button.style_std.clone(),
-                    material: mat_button.normal.clone(),
-                    ..Default::default()
-                })
-                .with(MenuStartupButtons::Options)
-                .with_children(create_child_txt_builder(
-                    "Options".to_string(),
-                    res.fnt_bold_fira.clone(),
-                ));
-        })
-        // Spawn Exit Game button
-        .with_children(|parent| {
-            parent
-                .spawn(ButtonBundle {
-                    style: sty_ui_button.style_std.clone(),
-                    material: mat_button.normal.clone(),
-                    ..Default::default()
-                })
-                .with(MenuStartupButtons::Exit)
-                .with_children(create_child_txt_builder(
-                    "Exit Game".to_string(),
-                    res.fnt_bold_fira.clone(),
-                ));
         });
+
+    // Spawn buttons as children
+    spawn_buttons(
+        commands,
+        mat_button.normal.clone(),
+        sty_ui_button.style_std.clone(),
+        res.fnt_bold_fira.clone(),
+    );
 
     // Store handle of sidebar entity
     ents.ent_sidebar = Some(commands.current_entity().unwrap());
+}
+
+/// Spawns the start menu buttons as a child of parent
+fn spawn_buttons(
+    commands: &mut Commands,
+    mat: Handle<ColorMaterial>,
+    sty: Style,
+    fnt: Handle<Font>,
+) {
+    // Create vector of buttons to spawn
+    let button_data = vec![
+        ("Continue Game", MenuStartupButtons::Continue),
+        ("New Game", MenuStartupButtons::NewGame),
+        ("Load Game", MenuStartupButtons::LoadGame),
+        ("Options Menu", MenuStartupButtons::Options),
+        ("Exit Game", MenuStartupButtons::Exit),
+    ];
+
+
+    // Spawn buttons
+    // TODO Parallelise?
+    for button in button_data {
+        spawn_button_as_child(
+            commands,
+            mat.clone(),
+            sty.clone(),
+            fnt.clone(),
+            String::from(button.0),
+            button.1,
+        );
+    }
+}
+
+/// Spawns a ButtonBundle as a child of current ent?
+fn spawn_button_as_child<'com>(
+    commands: &'com mut Commands,
+    mat: Handle<ColorMaterial>,
+    sty: Style,
+    fnt: Handle<Font>,
+    text: String,
+    butt: MenuStartupButtons,
+) -> &'com mut Commands {
+    commands.with_children(|parent| {
+        parent
+            .spawn(ButtonBundle {
+                style: sty,
+                material: mat,
+                ..Default::default()
+            })
+            .with(butt)
+            .with_children(create_child_txt_builder(text, fnt));
+    })
 }
