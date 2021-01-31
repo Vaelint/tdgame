@@ -5,11 +5,10 @@ use bevy::prelude::*;
 /// NOTE: only add entities that need to be cleaned upon exiting the state
 #[derive(Debug, Default)]
 pub struct StateMenuStartupEnts {
-    pub ent_txt_menu_main_title: Option<Entity>,
-    pub ent_sprite_icon: Option<Entity>,
+    pub ent_sidebar: Option<Entity>,
+    pub ent_background: Option<Entity>,
     pub ent_cam_main: Option<Vec<Entity>>,
     pub ent_cam_ui: Option<Vec<Entity>>,
-    pub ent_button_game_new: Option<Entity>,
 }
 
 /// Resources for project startup state
@@ -34,7 +33,7 @@ impl FromResources for StateMenuStartupResources {
 
 /// List of buttons in main menu
 // TODO Bevy reflection
-#[derive(Debug, Reflect)]
+#[derive(Debug)]
 pub enum MenuStartupButtons {
     Continue,
     NewGame,

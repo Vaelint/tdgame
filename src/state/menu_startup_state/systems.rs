@@ -27,7 +27,7 @@ pub fn spawn_sprite_main(
     });
 
     // Register sprite entity
-    ents.ent_sprite_icon = Some(commands.current_entity().unwrap());
+    ents.ent_background = Some(commands.current_entity().unwrap());
 }
 
 /// Spawns buttons for main menu
@@ -145,6 +145,9 @@ pub fn spawn_sidebar(
                     res.fnt_bold_fira.clone(),
                 ));
         });
+
+    // Store handle of sidebar entity
+    ents.ent_sidebar = Some(commands.current_entity().unwrap());
 }
 
 /// Updates button state and dispatches events
