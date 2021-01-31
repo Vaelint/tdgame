@@ -59,7 +59,7 @@ pub fn spawn_but_game_new(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StyleMenuUiButton>,
+    sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
@@ -84,7 +84,7 @@ pub fn spawn_but_game_load(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StyleMenuUiButton>,
+    sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
@@ -107,7 +107,7 @@ pub fn spawn_but_game_load(
 pub fn spawn_but_game_continue(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
-    sty_ui_button: Res<'_, StyleMenuUiButton>,
+    sty_ui_button: Res<'_, StateUiResources>,
     mat_button: Res<'_, ButtonMaterials>,
 
     res: Res<'_, StateMenuStartupResources>,
@@ -133,7 +133,7 @@ pub fn spawn_but_game_exit(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StyleMenuUiButton>,
+    sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
@@ -157,7 +157,7 @@ pub fn spawn_but_options(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StyleMenuUiButton>,
+    sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands

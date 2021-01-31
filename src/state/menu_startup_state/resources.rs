@@ -45,11 +45,11 @@ pub enum MenuStartupButtons {
 
 /// UI Style for main menu buttons
 #[derive(Debug, Reflect)]
-pub struct StyleMenuUiButton {
+pub struct StateUiResources {
     pub style_std: Style,
 }
 
-impl FromResources for StyleMenuUiButton {
+impl FromResources for StateUiResources {
     fn from_resources(_resources: &Resources) -> Self {
         Self {
             style_std: Style {
