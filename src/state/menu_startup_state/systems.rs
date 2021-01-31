@@ -54,126 +54,90 @@ pub fn spawn_sprite_main(
     ents.ent_sprite_icon = Some(commands.current_entity().unwrap());
 }
 
-/// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but_game_new(
+/// Spawns buttons for main menu
+pub fn spawn_but_startup(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
     sty_ui_button: Res<'_, StateUiResources>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
+    // Spawn root node
     commands
-        .spawn(ButtonBundle {
-            style: sty_ui_button.style_std.clone(),
-            material: mat_button.normal.clone(),
+        .spawn(NodeBundle {
+            style: sty_ui_button.style_node_root.clone(),
             ..Default::default()
         })
-        .with(MenuStartupButtons::NewGame)
-        // TODO refactor to combine these two function calls
-        .with_children(create_child_txt_builder(
-            "New Game".to_string(),
-            res.fnt_bold_fira.clone(),
-        ));
-
-    // Store handle of sprite entity
-    ents.ent_button_game_new = Some(commands.current_entity().unwrap());
-}
-
-/// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but_game_load(
-    commands: &mut Commands,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
-    mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StateUiResources>,
-    res: Res<'_, StateMenuStartupResources>,
-) {
-    commands
-        .spawn(ButtonBundle {
-            style: sty_ui_button.style_std.clone(),
-            material: mat_button.normal.clone(),
-            ..Default::default()
+        // Spawn continue game button
+        .with_children(|parent| {
+            parent
+                .spawn(ButtonBundle {
+                    style: sty_ui_button.style_std.clone(),
+                    material: mat_button.normal.clone(),
+                    ..Default::default()
+                })
+                .with(MenuStartupButtons::Continue)
+                .with_children(create_child_txt_builder(
+                    "Continue Game".to_string(),
+                    res.fnt_bold_fira.clone(),
+                ));
         })
-        .with(MenuStartupButtons::LoadGame)
-        .with_children(create_child_txt_builder(
-            "Load Game".to_string(),
-            res.fnt_bold_fira.clone(),
-        ));
-
-    // Store handle of sprite entity
-    ents.ent_button_game_new = Some(commands.current_entity().unwrap());
-}
-
-/// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but_game_continue(
-    commands: &mut Commands,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
-    sty_ui_button: Res<'_, StateUiResources>,
-    mat_button: Res<'_, ButtonMaterials>,
-
-    res: Res<'_, StateMenuStartupResources>,
-) {
-    commands
-        .spawn(ButtonBundle {
-            style: sty_ui_button.style_std.clone(),
-            material: mat_button.normal.clone(),
-            ..Default::default()
+        // Spawn new game button
+        .with_children(|parent| {
+            parent
+                .spawn(ButtonBundle {
+                    style: sty_ui_button.style_std.clone(),
+                    material: mat_button.normal.clone(),
+                    ..Default::default()
+                })
+                .with(MenuStartupButtons::NewGame)
+                .with_children(create_child_txt_builder(
+                    "New Game".to_string(),
+                    res.fnt_bold_fira.clone(),
+                ));
         })
-        .with(MenuStartupButtons::Continue)
-        .with_children(create_child_txt_builder(
-            "Continue".to_string(),
-            res.fnt_bold_fira.clone(),
-        ));
-
-    // Store handle of sprite entity
-    ents.ent_button_game_new = Some(commands.current_entity().unwrap());
-}
-
-/// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but_game_exit(
-    commands: &mut Commands,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
-    mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StateUiResources>,
-    res: Res<'_, StateMenuStartupResources>,
-) {
-    commands
-        .spawn(ButtonBundle {
-            style: sty_ui_button.style_std.clone(),
-            material: mat_button.normal.clone(),
-            ..Default::default()
+        // Spawn Load Game button
+        .with_children(|parent| {
+            parent
+                .spawn(ButtonBundle {
+                    style: sty_ui_button.style_std.clone(),
+                    material: mat_button.normal.clone(),
+                    ..Default::default()
+                })
+                .with(MenuStartupButtons::LoadGame)
+                .with_children(create_child_txt_builder(
+                    "Load Game".to_string(),
+                    res.fnt_bold_fira.clone(),
+                ));
         })
-        .with(MenuStartupButtons::Exit)
-        .with_children(create_child_txt_builder(
-            "Exit".to_string(),
-            res.fnt_bold_fira.clone(),
-        ));
-
-    // Store handle of sprite entity
-    ents.ent_button_game_new = Some(commands.current_entity().unwrap());
-}
-
-/// Spawns an ent w/ a button component that has a Text component as it's child
-pub fn spawn_but_options(
-    commands: &mut Commands,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
-    mat_button: Res<'_, ButtonMaterials>,
-    sty_ui_button: Res<'_, StateUiResources>,
-    res: Res<'_, StateMenuStartupResources>,
-) {
-    commands
-        .spawn(ButtonBundle {
-            style: sty_ui_button.style_std.clone(),
-            material: mat_button.normal.clone(),
-            ..Default::default()
+        // Spawn Options button
+        .with_children(|parent| {
+            parent
+                .spawn(ButtonBundle {
+                    style: sty_ui_button.style_std.clone(),
+                    material: mat_button.normal.clone(),
+                    ..Default::default()
+                })
+                .with(MenuStartupButtons::Options)
+                .with_children(create_child_txt_builder(
+                    "Options".to_string(),
+                    res.fnt_bold_fira.clone(),
+                ));
         })
-        .with(MenuStartupButtons::Options)
-        .with_children(create_child_txt_builder(
-            "Options".to_string(),
-            res.fnt_bold_fira.clone(),
-        ));
-
-    // Store handle of sprite entity
-    ents.ent_button_game_new = Some(commands.current_entity().unwrap());
+        // Spawn Exit Game button
+        .with_children(|parent| {
+            parent
+                .spawn(ButtonBundle {
+                    style: sty_ui_button.style_std.clone(),
+                    material: mat_button.normal.clone(),
+                    ..Default::default()
+                })
+                .with(MenuStartupButtons::Exit)
+                .with_children(create_child_txt_builder(
+                    "Exit Game".to_string(),
+                    res.fnt_bold_fira.clone(),
+                ));
+        });
 }
 
 /// Updates button state and dispatches events

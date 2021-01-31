@@ -46,12 +46,17 @@ pub enum MenuStartupButtons {
 /// UI Style for main menu buttons
 #[derive(Debug, Reflect)]
 pub struct StateUiResources {
+    pub style_node_root: Style,
     pub style_std: Style,
 }
 
 impl FromResources for StateUiResources {
     fn from_resources(_resources: &Resources) -> Self {
         Self {
+            style_node_root: Style {
+                align_items: AlignItems::FlexStart,
+                ..Default::default()
+            },
             style_std: Style {
                 // Set button size
                 size: Size::new(Val::Px(150.0), Val::Px(65.0)),
@@ -61,6 +66,7 @@ impl FromResources for StateUiResources {
                 justify_content: JustifyContent::Center,
                 // vertically center child text
                 align_items: AlignItems::Center,
+                align_self: AlignSelf::FlexStart,
                 flex_direction: FlexDirection::Column,
                 ..Default::default()
             },
