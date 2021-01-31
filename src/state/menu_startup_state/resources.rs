@@ -42,3 +42,28 @@ pub enum MenuStartupButtons {
     Options,
     Exit,
 }
+
+/// UI Style for main menu buttons
+#[derive(Debug, Reflect)]
+pub struct StyleMenuUiButton {
+    pub style_std: Style,
+}
+
+impl FromResources for StyleMenuUiButton {
+    fn from_resources(_resources: &Resources) -> Self {
+        Self {
+            style_std: Style {
+                // Set button size
+                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
+                // center button
+                margin: Rect::all(Val::Auto),
+                // horizontally center child text
+                justify_content: JustifyContent::Center,
+                // vertically center child text
+                align_items: AlignItems::Center,
+                flex_direction: FlexDirection::Column,
+                ..Default::default()
+            },
+        }
+    }
+}

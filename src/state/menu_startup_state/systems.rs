@@ -59,23 +59,16 @@ pub fn spawn_but_game_new(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
+    sty_ui_button: Res<'_, StyleMenuUiButton>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
         .spawn(ButtonBundle {
-            style: Style {
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
-                // center button
-                margin: Rect::all(Val::Auto),
-                // horizontally center child text
-                justify_content: JustifyContent::Center,
-                // vertically center child text
-                align_items: AlignItems::Center,
-                ..Default::default()
-            },
+            style: sty_ui_button.style_std.clone(),
             material: mat_button.normal.clone(),
             ..Default::default()
         })
+        .with(MenuStartupButtons::NewGame)
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 text: Text::with_section(
@@ -100,23 +93,16 @@ pub fn spawn_but_game_load(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
+    sty_ui_button: Res<'_, StyleMenuUiButton>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
         .spawn(ButtonBundle {
-            style: Style {
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
-                // center button
-                margin: Rect::all(Val::Auto),
-                // horizontally center child text
-                justify_content: JustifyContent::Center,
-                // vertically center child text
-                align_items: AlignItems::Center,
-                ..Default::default()
-            },
+            style: sty_ui_button.style_std.clone(),
             material: mat_button.normal.clone(),
             ..Default::default()
         })
+        .with(MenuStartupButtons::LoadGame)
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 text: Text::with_section(
@@ -140,37 +126,20 @@ pub fn spawn_but_game_load(
 pub fn spawn_but_game_continue(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
+    sty_ui_button: Res<'_, StyleMenuUiButton>,
     mat_button: Res<'_, ButtonMaterials>,
+
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
         .spawn(ButtonBundle {
-            style: Style {
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
-                // center button
-                margin: Rect::all(Val::Auto),
-                // horizontally center child text
-                justify_content: JustifyContent::Center,
-                // vertically center child text
-                align_items: AlignItems::Center,
-                ..Default::default()
-            },
+            style: sty_ui_button.style_std.clone(),
             material: mat_button.normal.clone(),
             ..Default::default()
         })
+        .with(MenuStartupButtons::Continue)
         .with_children(|parent| {
-            parent.spawn(TextBundle {
-                text: Text::with_section(
-                    "Continue",
-                    TextStyle {
-                        font: res.fnt_bold_fira.clone(),
-                        font_size: 40.0,
-                        color: Color::rgb(0.9, 0.9, 0.9),
-                    },
-                    Default::default(),
-                ),
-                ..Default::default()
-            });
+            
         });
 
     // Store handle of sprite entity
@@ -182,23 +151,16 @@ pub fn spawn_but_game_exit(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
+    sty_ui_button: Res<'_, StyleMenuUiButton>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
         .spawn(ButtonBundle {
-            style: Style {
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
-                // center button
-                margin: Rect::all(Val::Auto),
-                // horizontally center child text
-                justify_content: JustifyContent::Center,
-                // vertically center child text
-                align_items: AlignItems::Center,
-                ..Default::default()
-            },
+            style: sty_ui_button.style_std.clone(),
             material: mat_button.normal.clone(),
             ..Default::default()
         })
+        .with(MenuStartupButtons::Exit)
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 text: Text::with_section(
@@ -223,23 +185,16 @@ pub fn spawn_but_options(
     commands: &mut Commands,
     mut ents: ResMut<'_, StateMenuStartupEnts>,
     mat_button: Res<'_, ButtonMaterials>,
+    sty_ui_button: Res<'_, StyleMenuUiButton>,
     res: Res<'_, StateMenuStartupResources>,
 ) {
     commands
         .spawn(ButtonBundle {
-            style: Style {
-                size: Size::new(Val::Px(150.0), Val::Px(65.0)),
-                // center button
-                margin: Rect::all(Val::Auto),
-                // horizontally center child text
-                justify_content: JustifyContent::Center,
-                // vertically center child text
-                align_items: AlignItems::Center,
-                ..Default::default()
-            },
+            style: sty_ui_button.style_std.clone(),
             material: mat_button.normal.clone(),
             ..Default::default()
         })
+        .with(MenuStartupButtons::Options)
         .with_children(|parent| {
             parent.spawn(TextBundle {
                 text: Text::with_section(

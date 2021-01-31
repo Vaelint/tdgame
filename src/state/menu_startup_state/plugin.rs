@@ -14,6 +14,7 @@ impl Plugin for StateMenuStartupPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
+            .init_resource::<StyleMenuUiButton>()
             // FIXME control spawn order of buttons?
             // Add startup systems
             .on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_but_game_new.system())
