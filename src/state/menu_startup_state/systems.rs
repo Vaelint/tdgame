@@ -13,8 +13,11 @@ pub fn spawn_sprite_main(
     // TODO Look into borrowing just needed data
 
     // Create transform matrix
-    let trans_mat =
-        Mat4::from_scale_rotation_translation(Vec3::one(), Quat::identity(), Vec3::zero());
+    let trans_mat = Mat4::from_scale_rotation_translation(
+        (3.0, 3.0, 1.0).into(),
+        Quat::identity(),
+        Vec3::zero(),
+    );
 
     // Spawn sprite using texture from LoadStateRes
     commands.spawn(SpriteBundle {

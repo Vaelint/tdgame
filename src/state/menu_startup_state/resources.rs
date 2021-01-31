@@ -27,7 +27,7 @@ impl FromResources for StateMenuStartupResources {
 
         Self {
             fnt_bold_fira: asset_srv.load("fnt/FiraSans-Bold.ttf"),
-            mat_clr_icon: res_mat_clr.add(asset_srv.load("tex/icon.png").into()),
+            mat_clr_icon: res_mat_clr.add(asset_srv.load("tex/background.png").into()),
         }
     }
 }
@@ -64,7 +64,7 @@ impl FromResources for StateUiResources {
                 },
                 // Make children lay out in reverse column order
                 flex_direction: FlexDirection::ColumnReverse,
-                
+
                 ..Default::default()
             },
             style_std: Style {
