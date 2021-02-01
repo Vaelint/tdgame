@@ -5,9 +5,9 @@ use bevy::prelude::*;
 
 use crate::state::{AppStates, STAGE_LOADING};
 
-use super::assets::StartupMenuRes;
 use super::background::spawn_sprite_main;
 use super::exit_diag::{event_exitconf_sys, ExitConfirmDiagEnts, ExitConfirmDiagEvent};
+use super::resources::StartupMenuRes;
 use super::sidebar::{button::startup_butt_sys, spawn::spawn_sidebar};
 use super::styles::StateUiResources;
 

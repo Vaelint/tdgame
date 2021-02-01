@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 
-use crate::state::menu_startup::txtbuilder::MenuStartupButtons;
+use crate::state::menu_startup::MenuStartupButtons;
 use crate::state::ButtonMaterials;
 use crate::state::{menu_startup::exit_diag::ExitConfirmDiagEvent, DiagEvents};
 

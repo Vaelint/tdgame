@@ -1,6 +1,6 @@
 //! Loading screen background systems module
 
-use crate::state::menu_startup::assets::StartupMenuRes;
+use crate::state::menu_startup::resources::StartupMenuRes;
 use crate::state::menu_startup::sidebar::ents::SidebarEnts;
 use bevy::prelude::*;
 
