@@ -1,7 +1,8 @@
-use super::MenuStartupButtons;
-use crate::state::menu_startup::events::{DiagEvents, ExitConfirmDiagEvent};
-use crate::state::ButtonMaterials;
 use bevy::prelude::*;
+
+use crate::state::menu_startup::txtbuilder::MenuStartupButtons;
+use crate::state::ButtonMaterials;
+use crate::state::{menu_startup::exit_diag::ExitConfirmDiagEvent, DiagEvents};
 
 /// Updates button state and dispatches events
 pub fn startup_butt_sys(

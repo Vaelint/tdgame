@@ -1,16 +1,21 @@
 //! Project Main Menu sidebar module
 
-use super::super::resources::*;
+use crate::state::menu_startup::{
+    assets::StartupMenuRes,
+    sidebar::SidebarEnts,
+    styles::StateUiResources,
+    txtbuilder::{create_child_txt_builder, MenuStartupButtons},
+};
 use crate::state::ButtonMaterials;
 use bevy::prelude::*;
 
 /// Spawns buttons for main menu
 pub fn spawn_sidebar(
     commands: &mut Commands,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
+    mut ents: ResMut<'_, SidebarEnts>,
     mat_button: Res<'_, ButtonMaterials>,
     sty_ui_button: Res<'_, StateUiResources>,
-    res: Res<'_, StateMenuStartupResources>,
+    res: Res<'_, StartupMenuRes>,
 ) {
     // Spawn sidebar ents
     commands

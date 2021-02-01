@@ -1,12 +1,7 @@
+//! Text convenience function module
+// TODO Delete this
+
 use bevy::prelude::*;
-
-mod assets;
-mod ents;
-mod styles;
-
-pub use assets::*;
-pub use ents::*;
-pub use styles::*;
 
 /// List of buttons in main menu
 // TODO Bevy reflection

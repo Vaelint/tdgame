@@ -4,6 +4,7 @@
 #![warn(clippy::all)]
 #![warn(missing_docs, missing_debug_implementations)]
 
+use bevy::diagnostic::FrameTimeDiagnosticsPlugin;
 use bevy::prelude::*;
 
 use ecs::ProjectECSPlugins;
@@ -20,5 +21,6 @@ fn main() {
         .add_plugins(DefaultPlugins)
         .add_plugins(ProjectECSPlugins)
         .add_plugins(ProjectStatePlugs)
+        .add_plugin(FrameTimeDiagnosticsPlugin::default())
         .run();
 }

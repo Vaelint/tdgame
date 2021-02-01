@@ -1,18 +1,11 @@
 //! Exit confirmation event module
 
-use std::num::ParseIntError;
-
 use bevy::prelude::*;
 
-use super::resources::{StateMenuStartupResources, StateUiResources};
-use crate::state::ButtonMaterials;
-
-pub enum DiagEvents {
-    Confirm,
-    Deny,
-    Open,
-    Close,
-}
+use crate::state::{
+    menu_startup::{assets::StartupMenuRes, styles::StateUiResources},
+    ButtonMaterials, DiagEvents,
+};
 
 /// Exit conformation dialog event
 pub struct ExitConfirmDiagEvent(pub DiagEvents);
@@ -34,7 +27,7 @@ pub fn event_exitconf_sys(
     commands: &mut Commands,
     res_ui: Res<'_, StateUiResources>,
     res_butt: Res<'_, ButtonMaterials>,
-    res_state: Res<'_, StateMenuStartupResources>,
+    res_state: Res<'_, StartupMenuRes>,
     mut res_ents: ResMut<'_, ExitConfirmDiagEnts>,
 ) {
     for event in events.iter() {
@@ -75,7 +68,8 @@ pub fn event_exitconf_sys(
                             ),
                             ..Default::default()
                         });
-                    }).with_children(|parent| {
+                    })
+                    .with_children(|parent| {
                         parent.spawn(ButtonBundle {
                             style: res_ui.style_std.clone(),
                             material: res_butt.normal.clone(),
@@ -83,14 +77,18 @@ pub fn event_exitconf_sys(
                         });
                     });
 
-                    // Store entity handle for despawning
-                   res_ents.ent_root_node = Some(commands.current_entity().unwrap());
+                // Store entity handle for despawning
+                res_ents.ent_root_node = Some(commands.current_entity().unwrap());
             }
             // Close Dialog
             DiagEvents::Close => {
                 // Despawn spawned ents
                 // TODO recover if Close event without ent handle to despawn
-                commands.despawn_recursive(res_ents.ent_root_node.expect("Tried to despawn popup root node but it doesn't exist"));
+                commands.despawn_recursive(
+                    res_ents
+                        .ent_root_node
+                        .expect("Tried to despawn popup root node but it doesn't exist"),
+                );
             }
         }
     }

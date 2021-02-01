@@ -45,7 +45,7 @@ impl FromResources for StateUiResources {
                 position_type: PositionType::Absolute,
                 position: Rect::all(Val::Percent(20.0)),
                 ..Default::default()
-            }
+            },
         }
     }
 }

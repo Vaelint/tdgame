@@ -46,6 +46,14 @@ pub struct ButtonMaterials {
     pressed: Handle<ColorMaterial>,
 }
 
+/// Type of diag event
+pub enum DiagEvents {
+    Confirm,
+    Deny,
+    Open,
+    Close,
+}
+
 impl FromResources for ButtonMaterials {
     fn from_resources(resources: &Resources) -> Self {
         let mut materials = resources.get_mut::<Assets<ColorMaterial>>().unwrap();

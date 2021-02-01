@@ -1,13 +1,14 @@
 //! Loading screen background systems module
 
-use super::{StateMenuStartupEnts, StateMenuStartupResources};
+use crate::state::menu_startup::assets::StartupMenuRes;
+use crate::state::menu_startup::sidebar::ents::SidebarEnts;
 use bevy::prelude::*;
 
 /// Spawns an ent w/ a sprite component in the center of the screen
 pub fn spawn_sprite_main(
     commands: &mut Commands,
-    res: Res<'_, StateMenuStartupResources>,
-    mut ents: ResMut<'_, StateMenuStartupEnts>,
+    res: Res<'_, StartupMenuRes>,
+    mut ents: ResMut<'_, SidebarEnts>,
 ) {
     // TODO Look into borrowing just needed data
 

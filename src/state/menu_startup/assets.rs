@@ -2,12 +2,12 @@ use bevy::prelude::*;
 
 /// Resources for project startup state
 #[derive(Debug, Clone)]
-pub struct StateMenuStartupResources {
+pub struct StartupMenuRes {
     pub fnt_bold_fira: Handle<Font>,
     pub mat_clr_icon: Handle<ColorMaterial>,
 }
 
-impl FromResources for StateMenuStartupResources {
+impl FromResources for StartupMenuRes {
     fn from_resources(resources: &Resources) -> Self {
         // Get engine stores
         let asset_srv = resources.get_mut::<AssetServer>().unwrap();

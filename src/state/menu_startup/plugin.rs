@@ -1,11 +1,15 @@
-use super::events::*;
-use super::resources::*;
-use super::systems::*;
-use super::StateMenuStartup;
-/// Project startup state Bevy Plugin module
+//! Project startup state Bevy Plugin module
+
+use crate::state::menu_startup::sidebar::SidebarEnts;
 use bevy::prelude::*;
 
 use crate::state::{AppStates, STAGE_LOADING};
+
+use super::assets::StartupMenuRes;
+use super::background::spawn_sprite_main;
+use super::exit_diag::{event_exitconf_sys, ExitConfirmDiagEnts, ExitConfirmDiagEvent};
+use super::sidebar::{button::startup_butt_sys, spawn::spawn_sidebar};
+use super::styles::StateUiResources;
 
 /// Bevy plugin for project startup state
 #[derive(Debug)]
@@ -14,8 +18,8 @@ pub struct StateMenuStartupPlugin;
 impl StateMenuStartupPlugin {
     /// Adds startup state's resources to an AppBuilder
     fn add_resources(app: &mut AppBuilder) -> &mut AppBuilder {
-        app.init_resource::<StateMenuStartupResources>()
-            .init_resource::<StateMenuStartupEnts>()
+        app.init_resource::<StartupMenuRes>()
+            .init_resource::<SidebarEnts>()
             .init_resource::<StateUiResources>()
             .init_resource::<ExitConfirmDiagEnts>()
     }
@@ -36,11 +40,6 @@ impl StateMenuStartupPlugin {
     fn add_update_sys(app: &mut AppBuilder) -> &mut AppBuilder {
         app
             // Add update systems
-            .on_state_update(
-                STAGE_LOADING,
-                AppStates::Menu,
-                StateMenuStartup::update.system(),
-            )
             .on_state_update(STAGE_LOADING, AppStates::Menu, startup_butt_sys.system())
             .on_state_update(STAGE_LOADING, AppStates::Menu, event_exitconf_sys.system())
     }
@@ -48,12 +47,6 @@ impl StateMenuStartupPlugin {
     /// Adds startup state's exit systems to an AppBuilder
     fn add_exit_sys(app: &mut AppBuilder) -> &mut AppBuilder {
         app
-            // Add exit systems
-            .on_state_exit(
-                STAGE_LOADING,
-                AppStates::Menu,
-                StateMenuStartup::kill.system(),
-            )
     }
 }
 

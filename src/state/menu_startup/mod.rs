@@ -1,12 +1,11 @@
+mod assets;
+mod background;
 /// Project startup menu state module
-use bevy::prelude::*;
-
-use resources::StateMenuStartupResources;
-
-mod events;
+pub mod exit_diag;
 mod plugin;
-mod resources;
-mod systems;
+pub mod sidebar;
+mod styles;
+mod txtbuilder;
 
 // Re-export plugins module
 pub use plugin::StateMenuStartupPlugin;
@@ -14,12 +13,3 @@ pub use plugin::StateMenuStartupPlugin;
 /// Bevy State for project startup screen
 #[derive(Debug)]
 pub struct StateMenuStartup;
-
-impl StateMenuStartup {
-    fn update(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
-        // Do nothing
-    }
-    fn kill(_com: &mut Commands, _res: Res<'_, StateMenuStartupResources>) {
-        // TODO clean up spawn ents
-    }
-}
