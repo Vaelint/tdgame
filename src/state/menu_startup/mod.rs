@@ -1,12 +1,11 @@
 use bevy::prelude::*;
 
-mod background;
+pub mod background;
 /// Project startup menu state module
 pub mod exit_diag;
 mod plugin;
-mod resources;
 pub mod sidebar;
-mod styles;
+pub mod universal;
 
 // Re-export plugins module
 pub use plugin::StateMenuStartupPlugin;

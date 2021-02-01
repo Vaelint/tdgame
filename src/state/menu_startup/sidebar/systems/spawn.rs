@@ -1,8 +1,10 @@
 //! Project Main Menu sidebar module
 
 use crate::state::menu_startup::{
-    create_child_txt_builder, resources::StartupMenuRes, sidebar::SidebarEnts,
-    styles::StateUiResources, MenuStartupButtons,
+    create_child_txt_builder,
+    sidebar::SidebarEnts,
+    universal::{StartupMenuRes, StateUiResources},
+    MenuStartupButtons,
 };
 use crate::state::ButtonMaterials;
 use bevy::prelude::*;

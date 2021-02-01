@@ -3,7 +3,7 @@
 use bevy::prelude::*;
 
 use crate::state::{
-    menu_startup::{resources::StartupMenuRes, styles::StateUiResources},
+    menu_startup::universal::{StartupMenuRes, StateUiResources},
     ButtonMaterials, DiagEvents,
 };
 

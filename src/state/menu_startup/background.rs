@@ -1,7 +1,7 @@
 //! Loading screen background systems module
 
-use crate::state::menu_startup::resources::StartupMenuRes;
 use crate::state::menu_startup::sidebar::ents::SidebarEnts;
+use crate::state::menu_startup::universal::StartupMenuRes;
 use bevy::prelude::*;
 
 /// Spawns an ent w/ a sprite component in the center of the screen

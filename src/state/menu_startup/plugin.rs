@@ -7,9 +7,8 @@ use crate::state::{AppStates, STAGE_LOADING};
 
 use super::background::spawn_sprite_main;
 use super::exit_diag::{event_exitconf_sys, ExitConfirmDiagEnts, ExitConfirmDiagEvent};
-use super::resources::StartupMenuRes;
 use super::sidebar::{button::startup_butt_sys, spawn::spawn_sidebar};
-use super::styles::StateUiResources;
+use super::universal::{StartupMenuRes, StateUiResources};
 
 /// Bevy plugin for project startup state
 #[derive(Debug)]
