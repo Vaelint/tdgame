@@ -1,10 +1,11 @@
-use bevy::prelude::*;
+use bevy::{prelude::*, text::DefaultTextPipeline};
 
 /// UI Style for main menu buttons
 #[derive(Debug, Reflect)]
 pub struct StateUiResources {
     pub style_node_root: Style,
     pub style_std: Style,
+    pub style_popup: Style,
 }
 
 impl FromResources for StateUiResources {
@@ -37,6 +38,14 @@ impl FromResources for StateUiResources {
                 flex_direction: FlexDirection::Column,
                 ..Default::default()
             },
+            style_popup: Style {
+                // Set size
+                size: Size::new(Val::Percent(60.0), Val::Percent(60.0)),
+                // Set position
+                position_type: PositionType::Absolute,
+                position: Rect::all(Val::Percent(20.0)),
+                ..Default::default()
+            }
         }
     }
 }
