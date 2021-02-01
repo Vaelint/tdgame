@@ -17,6 +17,7 @@ impl StateMenuStartupPlugin {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
             .init_resource::<StateUiResources>()
+            .init_resource::<ExitConfirmDiagEnts>()
     }
 
     /// Adds startup state's events to an AppBuilder
