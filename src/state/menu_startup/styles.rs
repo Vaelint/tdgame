@@ -1,4 +1,4 @@
-use bevy::{prelude::*, text::DefaultTextPipeline};
+use bevy::prelude::*;
 
 /// UI Style for main menu buttons
 #[derive(Debug, Reflect)]

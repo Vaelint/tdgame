@@ -47,6 +47,8 @@ pub struct ButtonMaterials {
 }
 
 /// Type of diag event
+// TODO TEMP
+#[allow(dead_code)]
 pub enum DiagEvents {
     Confirm,
     Deny,

@@ -14,7 +14,7 @@ pub struct ExitConfirmDiagEnts {
 }
 
 impl FromResources for ExitConfirmDiagEnts {
-    fn from_resources(resources: &Resources) -> Self {
+    fn from_resources(_resources: &Resources) -> Self {
         Self {
             ent_root_node: None,
         }
