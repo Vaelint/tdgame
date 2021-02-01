@@ -1,6 +1,6 @@
 use super::MenuStartupButtons;
+use crate::state::menu_startup::events::{DiagEvents, ExitConfirmDiagEvent};
 use crate::state::ButtonMaterials;
-use bevy::app::AppExit;
 use bevy::prelude::*;
 
 /// Updates button state and dispatches events
@@ -20,7 +20,7 @@ pub fn startup_butt_sys(
         ),
     >,
     mut _text_query: Query<'_, &Text>,
-    mut app_exit_events: ResMut<'_, Events<AppExit>>,
+    mut exitconf_events: ResMut<'_, Events<ExitConfirmDiagEvent>>,
 ) {
     // TODO make align with project conventions
     // TODO Add button match to branch on button type
@@ -37,7 +37,9 @@ pub fn startup_butt_sys(
                     MenuStartupButtons::LoadGame => {}
                     MenuStartupButtons::Options => {}
                     // TODO confirm exit before exiting
-                    MenuStartupButtons::Exit => app_exit_events.send(AppExit {}),
+                    MenuStartupButtons::Exit => {
+                        exitconf_events.send(ExitConfirmDiagEvent(DiagEvents::Open))
+                    }
                 }
             }
             Interaction::Hovered => {

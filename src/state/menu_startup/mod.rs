@@ -3,6 +3,7 @@ use bevy::prelude::*;
 
 use resources::StateMenuStartupResources;
 
+mod events;
 mod plugin;
 mod resources;
 mod systems;

@@ -1,3 +1,4 @@
+use super::events::*;
 use super::resources::*;
 use super::systems::*;
 use super::StateMenuStartup;
@@ -12,21 +13,26 @@ pub struct StateMenuStartupPlugin;
 
 impl StateMenuStartupPlugin {
     /// Adds startup state's resources to an AppBuilder
-    fn init_resources(app: &mut AppBuilder) -> &mut AppBuilder {
+    fn add_resources(app: &mut AppBuilder) -> &mut AppBuilder {
         app.init_resource::<StateMenuStartupResources>()
             .init_resource::<StateMenuStartupEnts>()
             .init_resource::<StateUiResources>()
     }
 
+    /// Adds startup state's events to an AppBuilder
+    fn add_events(app: &mut AppBuilder) -> &mut AppBuilder {
+        app.add_event::<ExitConfirmDiagEvent>()
+    }
+
     /// Adds startup state's startup systems to an AppBuilder
-    fn init_startup_systems(app: &mut AppBuilder) -> &mut AppBuilder {
+    fn add_startup_sys(app: &mut AppBuilder) -> &mut AppBuilder {
         app.on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_sidebar.system())
             // Spawn example game sprite
             .on_state_enter(STAGE_LOADING, AppStates::Menu, spawn_sprite_main.system())
     }
 
     /// Adds startup state's update systems to an AppBuilder
-    fn init_update_systems(app: &mut AppBuilder) -> &mut AppBuilder {
+    fn add_update_sys(app: &mut AppBuilder) -> &mut AppBuilder {
         app
             // Add update systems
             .on_state_update(
@@ -35,10 +41,11 @@ impl StateMenuStartupPlugin {
                 StateMenuStartup::update.system(),
             )
             .on_state_update(STAGE_LOADING, AppStates::Menu, startup_butt_sys.system())
+            .on_state_update(STAGE_LOADING, AppStates::Menu, event_exitconf_sys.system())
     }
 
     /// Adds startup state's exit systems to an AppBuilder
-    fn init_exit_systems(app: &mut AppBuilder) -> &mut AppBuilder {
+    fn add_exit_sys(app: &mut AppBuilder) -> &mut AppBuilder {
         app
             // Add exit systems
             .on_state_exit(
@@ -51,9 +58,10 @@ impl StateMenuStartupPlugin {
 
 impl Plugin for StateMenuStartupPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        Self::init_resources(app);
-        Self::init_startup_systems(app);
-        Self::init_update_systems(app);
-        Self::init_exit_systems(app);
+        Self::add_resources(app);
+        Self::add_events(app);
+        Self::add_startup_sys(app);
+        Self::add_update_sys(app);
+        Self::add_exit_sys(app);
     }
 }
