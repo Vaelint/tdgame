@@ -21,7 +21,7 @@ pub fn spawn_sprite_main(
 
     // Spawn sprite using texture from LoadStateRes
     commands.spawn(SpriteBundle {
-        material: res.mat_clr_icon.clone(),
+        material: res.mat_background.clone(),
         transform: Transform::from_matrix(trans_mat),
         ..Default::default()
     });

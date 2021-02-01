@@ -39,7 +39,7 @@ pub fn spawn_sidebar(
                 text: Text::with_section(
                     "Project Name",
                     TextStyle {
-                        font: res.fnt_bold_fira.clone(),
+                        font: res.fnt_standard.clone(),
                         font_size: 40.0,
                         color: Color::rgb(0.9, 0.9, 0.9),
                     },
@@ -54,7 +54,7 @@ pub fn spawn_sidebar(
         commands,
         mat_button.normal.clone(),
         sty_ui_button.style_std.clone(),
-        res.fnt_bold_fira.clone(),
+        res.fnt_standard.clone(),
     );
 
     // Store handle of sidebar entity

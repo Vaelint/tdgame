@@ -3,8 +3,8 @@ use bevy::prelude::*;
 /// Resources for project startup state
 #[derive(Debug, Clone)]
 pub struct StartupMenuRes {
-    pub fnt_bold_fira: Handle<Font>,
-    pub mat_clr_icon: Handle<ColorMaterial>,
+    pub fnt_standard: Handle<Font>,
+    pub mat_background: Handle<ColorMaterial>,
 }
 
 impl FromResources for StartupMenuRes {
@@ -14,8 +14,8 @@ impl FromResources for StartupMenuRes {
         let mut res_mat_clr = resources.get_mut::<Assets<ColorMaterial>>().unwrap();
 
         Self {
-            fnt_bold_fira: asset_srv.load("fnt/FiraSans-Bold.ttf"),
-            mat_clr_icon: res_mat_clr.add(asset_srv.load("tex/background.png").into()),
+            fnt_standard: asset_srv.load("fnt/FiraSans-Bold.ttf"),
+            mat_background: res_mat_clr.add(asset_srv.load("tex/background.png").into()),
         }
     }
 }

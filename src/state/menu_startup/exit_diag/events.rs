@@ -60,7 +60,7 @@ pub fn event_exitconf_sys(
                             text: Text::with_section(
                                 "Are you sure you want to exit?",
                                 TextStyle {
-                                    font: res_state.fnt_bold_fira.clone(),
+                                    font: res_state.fnt_standard.clone(),
                                     font_size: 40.0,
                                     color: Color::rgb(0.9, 0.9, 0.9),
                                 },
