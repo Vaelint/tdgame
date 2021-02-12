@@ -15,12 +15,23 @@ Taskfile.yml
 
 ## Project Debug files
 **/dbgworld.ron
+
 ### Saved breakpoints
 breakpoints
 .break
+
 ### Game executable copied into project root
 tdgame
 
 ## Bevy build features
 .cargo/config.toml
 .cargo/config.toml.opt
+
+## Jupyter Notebooks
+notebook/
+.notebook/
+notebooks/
+.notebooks/
+
+.ipynb_checkpoints/
+*.ipynb
